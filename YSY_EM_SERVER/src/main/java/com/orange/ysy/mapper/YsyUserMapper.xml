@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.orange.ysy.mapper.YsyUserMapper">
+  <resultMap id="BaseResultMap" type="com.orange.ysy.entity.YsyUser">
+    <id column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="is_vip" jdbcType="BIT" property="isVip" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="user_wx" jdbcType="VARCHAR" property="userWx" />
+    <result column="user_level" jdbcType="SMALLINT" property="userLevel" />
+    <result column="invite_code" jdbcType="VARCHAR" property="inviteCode" />
+    <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
+    <result column="invited_time" jdbcType="TIMESTAMP" property="invitedTime" />
+    <result column="vip_time" jdbcType="TIMESTAMP" property="vipTime" />
+    <result column="token" jdbcType="VARCHAR" property="token" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    user_id, user_name, is_vip, nick_name, user_wx, user_level, invite_code, parent_id, 
+    invited_time, vip_time, token
+  </sql>
+  <select id="selectByExample" parameterType="com.orange.ysy.entity.YsyUserExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ysy_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ysy_user
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ysy_user
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.orange.ysy.entity.YsyUserExample">
+    delete from ysy_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.orange.ysy.entity.YsyUser">
+    insert into ysy_user (user_id, user_name, is_vip, 
+      nick_name, user_wx, user_level, 
+      invite_code, parent_id, invited_time, 
+      vip_time, token)
+    values (#{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{isVip,jdbcType=BIT}, 
+      #{nickName,jdbcType=VARCHAR}, #{userWx,jdbcType=VARCHAR}, #{userLevel,jdbcType=SMALLINT}, 
+      #{inviteCode,jdbcType=VARCHAR}, #{parentId,jdbcType=VARCHAR}, #{invitedTime,jdbcType=TIMESTAMP}, 
+      #{vipTime,jdbcType=TIMESTAMP}, #{token,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.orange.ysy.entity.YsyUser">
+    insert into ysy_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="isVip != null">
+        is_vip,
+      </if>
+      <if test="nickName != null">
+        nick_name,
+      </if>
+      <if test="userWx != null">
+        user_wx,
+      </if>
+      <if test="userLevel != null">
+        user_level,
+      </if>
+      <if test="inviteCode != null">
+        invite_code,
+      </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="invitedTime != null">
+        invited_time,
+      </if>
+      <if test="vipTime != null">
+        vip_time,
+      </if>
+      <if test="token != null">
+        token,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="isVip != null">
+        #{isVip,jdbcType=BIT},
+      </if>
+      <if test="nickName != null">
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="userWx != null">
+        #{userWx,jdbcType=VARCHAR},
+      </if>
+      <if test="userLevel != null">
+        #{userLevel,jdbcType=SMALLINT},
+      </if>
+      <if test="inviteCode != null">
+        #{inviteCode,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="invitedTime != null">
+        #{invitedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="vipTime != null">
+        #{vipTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="token != null">
+        #{token,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.orange.ysy.entity.YsyUserExample" resultType="java.lang.Long">
+    select count(*) from ysy_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ysy_user
+    <set>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isVip != null">
+        is_vip = #{record.isVip,jdbcType=BIT},
+      </if>
+      <if test="record.nickName != null">
+        nick_name = #{record.nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userWx != null">
+        user_wx = #{record.userWx,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userLevel != null">
+        user_level = #{record.userLevel,jdbcType=SMALLINT},
+      </if>
+      <if test="record.inviteCode != null">
+        invite_code = #{record.inviteCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentId != null">
+        parent_id = #{record.parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.invitedTime != null">
+        invited_time = #{record.invitedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.vipTime != null">
+        vip_time = #{record.vipTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.token != null">
+        token = #{record.token,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ysy_user
+    set user_id = #{record.userId,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      is_vip = #{record.isVip,jdbcType=BIT},
+      nick_name = #{record.nickName,jdbcType=VARCHAR},
+      user_wx = #{record.userWx,jdbcType=VARCHAR},
+      user_level = #{record.userLevel,jdbcType=SMALLINT},
+      invite_code = #{record.inviteCode,jdbcType=VARCHAR},
+      parent_id = #{record.parentId,jdbcType=VARCHAR},
+      invited_time = #{record.invitedTime,jdbcType=TIMESTAMP},
+      vip_time = #{record.vipTime,jdbcType=TIMESTAMP},
+      token = #{record.token,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.orange.ysy.entity.YsyUser">
+    update ysy_user
+    <set>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="isVip != null">
+        is_vip = #{isVip,jdbcType=BIT},
+      </if>
+      <if test="nickName != null">
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="userWx != null">
+        user_wx = #{userWx,jdbcType=VARCHAR},
+      </if>
+      <if test="userLevel != null">
+        user_level = #{userLevel,jdbcType=SMALLINT},
+      </if>
+      <if test="inviteCode != null">
+        invite_code = #{inviteCode,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="invitedTime != null">
+        invited_time = #{invitedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="vipTime != null">
+        vip_time = #{vipTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="token != null">
+        token = #{token,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.orange.ysy.entity.YsyUser">
+    update ysy_user
+    set user_name = #{userName,jdbcType=VARCHAR},
+      is_vip = #{isVip,jdbcType=BIT},
+      nick_name = #{nickName,jdbcType=VARCHAR},
+      user_wx = #{userWx,jdbcType=VARCHAR},
+      user_level = #{userLevel,jdbcType=SMALLINT},
+      invite_code = #{inviteCode,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=VARCHAR},
+      invited_time = #{invitedTime,jdbcType=TIMESTAMP},
+      vip_time = #{vipTime,jdbcType=TIMESTAMP},
+      token = #{token,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+</mapper>

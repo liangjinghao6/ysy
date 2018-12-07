@@ -3,3 +3,7 @@
 /server/app/
 /server/node_modules/
 /server/runtime/
+/YSY_EM_SERVER/.classpath
+/YSY_EM_SERVER/.project
+/YSY_EM_SERVER/.settings/
+/YSY_EM_SERVER/target/
