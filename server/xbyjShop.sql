@@ -1,5 +1,5 @@
-CREATE DATABASE  IF NOT EXISTS `xbyjshop` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
-USE `xbyjshop`;
+CREATE DATABASE  IF NOT EXISTS `ysy` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
+USE `ysy`;
 -- MySQL dump 10.13  Distrib 5.7.17, for macos10.12 (x86_64)
 --
 -- Host: 127.0.0.1    Database: xbyjshop

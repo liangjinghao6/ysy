@@ -11,6 +11,7 @@
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
+    "escape-string-regexp": "^1.0.5",
     "flyio": "^0.5.9",
     "mpvue": "^1.0.12",
     "mpvue-entry": "^1.4.2",
