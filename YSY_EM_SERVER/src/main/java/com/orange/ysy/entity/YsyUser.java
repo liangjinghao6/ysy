@@ -5,112 +5,141 @@ import java.util.Date;
 public class YsyUser {
     private String userId;
 
-	private String userName;
+    private String userName;
 
-	private Boolean isVip;
+    private String nickName;
 
-	private String nickName;
+    private Byte isVip;
 
-	private String userWx;
+    private String wxNo;
 
-	private Short userLevel;
+    private Short userLevel;
 
-	private String inviteCode;
+    private Integer inviteNo;
 
-	private String parentId;
+    private String inviteId;
 
-	private Date invitedTime;
+    private Date createTime;
 
-	private Date vipTime;
+    private Date updateTime;
 
-	private String token;
+    private Date inviteTime;
 
-	public String getUserId() {
-		return userId;
-	}
+    private Date vipTime;
 
-	public void setUserId(String userId) {
-		this.userId = userId == null ? null : userId.trim();
-	}
+    private String token;
 
-	public String getUserName() {
-		return userName;
-	}
+    private Short recordStatus;
 
-	public void setUserName(String userName) {
-		this.userName = userName == null ? null : userName.trim();
-	}
+    public String getUserId() {
+        return userId;
+    }
 
-	public Boolean getIsVip() {
-		return isVip;
-	}
+    public void setUserId(String userId) {
+        this.userId = userId == null ? null : userId.trim();
+    }
 
-	public void setIsVip(Boolean isVip) {
-		this.isVip = isVip;
-	}
+    public String getUserName() {
+        return userName;
+    }
 
-	public String getNickName() {
-		return nickName;
-	}
+    public void setUserName(String userName) {
+        this.userName = userName == null ? null : userName.trim();
+    }
 
-	public void setNickName(String nickName) {
-		this.nickName = nickName == null ? null : nickName.trim();
-	}
+    public String getNickName() {
+        return nickName;
+    }
 
-	public String getUserWx() {
-		return userWx;
-	}
+    public void setNickName(String nickName) {
+        this.nickName = nickName == null ? null : nickName.trim();
+    }
 
-	public void setUserWx(String userWx) {
-		this.userWx = userWx == null ? null : userWx.trim();
-	}
+    public Byte getIsVip() {
+        return isVip;
+    }
 
-	public Short getUserLevel() {
-		return userLevel;
-	}
+    public void setIsVip(Byte isVip) {
+        this.isVip = isVip;
+    }
 
-	public void setUserLevel(Short userLevel) {
-		this.userLevel = userLevel;
-	}
+    public String getWxNo() {
+        return wxNo;
+    }
 
-	public String getInviteCode() {
-		return inviteCode;
-	}
+    public void setWxNo(String wxNo) {
+        this.wxNo = wxNo == null ? null : wxNo.trim();
+    }
 
-	public void setInviteCode(String inviteCode) {
-		this.inviteCode = inviteCode == null ? null : inviteCode.trim();
-	}
+    public Short getUserLevel() {
+        return userLevel;
+    }
 
-	public String getParentId() {
-		return parentId;
-	}
+    public void setUserLevel(Short userLevel) {
+        this.userLevel = userLevel;
+    }
 
-	public void setParentId(String parentId) {
-		this.parentId = parentId == null ? null : parentId.trim();
-	}
+    public Integer getInviteNo() {
+        return inviteNo;
+    }
 
-	public Date getInvitedTime() {
-		return invitedTime;
-	}
+    public void setInviteNo(Integer inviteNo) {
+        this.inviteNo = inviteNo;
+    }
 
-	public void setInvitedTime(Date invitedTime) {
-		this.invitedTime = invitedTime;
-	}
+    public String getInviteId() {
+        return inviteId;
+    }
 
-	public Date getVipTime() {
-		return vipTime;
-	}
+    public void setInviteId(String inviteId) {
+        this.inviteId = inviteId == null ? null : inviteId.trim();
+    }
 
-	public void setVipTime(Date vipTime) {
-		this.vipTime = vipTime;
-	}
+    public Date getCreateTime() {
+        return createTime;
+    }
 
-	public String getToken() {
-		return token;
-	}
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
-	public void setToken(String token) {
-		this.token = token == null ? null : token.trim();
-	}
+    public Date getUpdateTime() {
+        return updateTime;
+    }
 
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public Date getInviteTime() {
+        return inviteTime;
+    }
+
+    public void setInviteTime(Date inviteTime) {
+        this.inviteTime = inviteTime;
+    }
+
+    public Date getVipTime() {
+        return vipTime;
+    }
+
+    public void setVipTime(Date vipTime) {
+        this.vipTime = vipTime;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token == null ? null : token.trim();
+    }
+
+    public Short getRecordStatus() {
+        return recordStatus;
+    }
+
+    public void setRecordStatus(Short recordStatus) {
+        this.recordStatus = recordStatus;
+    }
 }

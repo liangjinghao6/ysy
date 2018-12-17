@@ -40,12 +40,12 @@ public class UserService implements IUserService{
 
 	@Override
 	public Integer addUser(YsyUser user) {
-		if (StringUtils.isEmpty(user.getUserName()) || StringUtils.isEmpty(user.getUserWx())) {
+		if (StringUtils.isEmpty(user.getUserName()) || StringUtils.isEmpty(user.getWxNo())) {
 			throw new ServiceException("参数为空");
 		}
 		
 		YsyUserExample userExample = new YsyUserExample();
-		userExample.createCriteria().andUserWxEqualTo(user.getUserWx());
+		userExample.createCriteria().andWxNoEqualTo(user.getWxNo());
 		userExample.createCriteria().andUserNameEqualTo(user.getUserName());
 		List<YsyUser> userCheck = userMapper.selectByExample(userExample);
 		if (userCheck.size() > 0) {
@@ -59,7 +59,7 @@ public class UserService implements IUserService{
 	@Override
 	public List<YsyUser> findUser(String q, Integer page, Integer limit) {
 		YsyUserExample userExample = new YsyUserExample();
-		userExample.createCriteria().andUserWxEqualTo(q);
+		userExample.createCriteria().andWxNoEqualTo(q);
 		userExample.createCriteria().andUserNameEqualTo(q);
 		return userMapper.selectByExample(userExample);
 	}

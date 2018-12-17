@@ -1,5 +1,5 @@
 package com.orange.ysy.mybatis;
-
+ 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
@@ -14,17 +14,21 @@ import org.mybatis.generator.exception.InvalidConfigurationException;
 import org.mybatis.generator.exception.XMLParserException;
 import org.mybatis.generator.internal.DefaultShellCallback;
 
-/**
- * 描述：
- * @since 1.9.10
- * @version 1.9.10
- * @作者：niexiaohui
- * @创建时间：2016年11月22日
- * @修改记录：
- */
+
+ 
+/**   
+ * @Title: StartUp.java 
+ * @Package com.fendo.mybatis_generator_plus 
+ * @Description: TODO
+ * @author fendo
+ * @date 2017年10月5日 下午3:53:17 
+ * @version V1.0   
+*/
 public class StartUp {
-    public static void main(String[] args) throws URISyntaxException {
+ 
+	public static void main(String[] args) throws URISyntaxException {
         try {
+        	System.out.println("--------------------start generator-------------------");
             List<String> warnings = new ArrayList<String>();
             boolean overwrite = true;
             ClassLoader classloader = Thread.currentThread().getContextClassLoader();
@@ -34,6 +38,7 @@ public class StartUp {
             DefaultShellCallback callback = new DefaultShellCallback(overwrite);
             MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config, callback, warnings);
             myBatisGenerator.generate(null);
+        	System.out.println("--------------------end generator-------------------");
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -47,4 +52,3 @@ public class StartUp {
         }
     }
 }
-

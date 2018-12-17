@@ -4,11 +4,8 @@ import com.orange.ysy.entity.YsyUser;
 import com.orange.ysy.entity.YsyUserExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
-
-public interface YsyUserMapper{
-	
+public interface YsyUserMapper {
     long countByExample(YsyUserExample example);
 
     int deleteByExample(YsyUserExample example);
