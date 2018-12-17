@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.orange.ysy.mapper.YsyOrderBackMapper">
+  <resultMap id="BaseResultMap" type="com.orange.ysy.entity.YsyOrderBack">
+    <id column="back_id" jdbcType="VARCHAR" property="backId" />
+    <result column="back_no" jdbcType="INTEGER" property="backNo" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="total_price" jdbcType="DOUBLE" property="totalPrice" />
+    <result column="order_status" jdbcType="SMALLINT" property="orderStatus" />
+    <result column="order_desc" jdbcType="VARCHAR" property="orderDesc" />
+    <result column="finish_time" jdbcType="TIMESTAMP" property="finishTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="record_status" jdbcType="SMALLINT" property="recordStatus" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    back_id, back_no, user_id, total_price, order_status, order_desc, finish_time, create_time, 
+    update_time, record_status
+  </sql>
+  <select id="selectByExample" parameterType="com.orange.ysy.entity.YsyOrderBackExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ysy_order_back
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ysy_order_back
+    where back_id = #{backId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ysy_order_back
+    where back_id = #{backId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.orange.ysy.entity.YsyOrderBackExample">
+    delete from ysy_order_back
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.orange.ysy.entity.YsyOrderBack">
+    insert into ysy_order_back (back_id, back_no, user_id, 
+      total_price, order_status, order_desc, 
+      finish_time, create_time, update_time, 
+      record_status)
+    values (#{backId,jdbcType=VARCHAR}, #{backNo,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, 
+      #{totalPrice,jdbcType=DOUBLE}, #{orderStatus,jdbcType=SMALLINT}, #{orderDesc,jdbcType=VARCHAR}, 
+      #{finishTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{recordStatus,jdbcType=SMALLINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.orange.ysy.entity.YsyOrderBack">
+    insert into ysy_order_back
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="backId != null">
+        back_id,
+      </if>
+      <if test="backNo != null">
+        back_no,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="totalPrice != null">
+        total_price,
+      </if>
+      <if test="orderStatus != null">
+        order_status,
+      </if>
+      <if test="orderDesc != null">
+        order_desc,
+      </if>
+      <if test="finishTime != null">
+        finish_time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="recordStatus != null">
+        record_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="backId != null">
+        #{backId,jdbcType=VARCHAR},
+      </if>
+      <if test="backNo != null">
+        #{backNo,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="totalPrice != null">
+        #{totalPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="orderStatus != null">
+        #{orderStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="orderDesc != null">
+        #{orderDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="finishTime != null">
+        #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordStatus != null">
+        #{recordStatus,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.orange.ysy.entity.YsyOrderBackExample" resultType="java.lang.Long">
+    select count(*) from ysy_order_back
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ysy_order_back
+    <set>
+      <if test="record.backId != null">
+        back_id = #{record.backId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.backNo != null">
+        back_no = #{record.backNo,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalPrice != null">
+        total_price = #{record.totalPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.orderStatus != null">
+        order_status = #{record.orderStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="record.orderDesc != null">
+        order_desc = #{record.orderDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.finishTime != null">
+        finish_time = #{record.finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.recordStatus != null">
+        record_status = #{record.recordStatus,jdbcType=SMALLINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ysy_order_back
+    set back_id = #{record.backId,jdbcType=VARCHAR},
+      back_no = #{record.backNo,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      total_price = #{record.totalPrice,jdbcType=DOUBLE},
+      order_status = #{record.orderStatus,jdbcType=SMALLINT},
+      order_desc = #{record.orderDesc,jdbcType=VARCHAR},
+      finish_time = #{record.finishTime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      record_status = #{record.recordStatus,jdbcType=SMALLINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.orange.ysy.entity.YsyOrderBack">
+    update ysy_order_back
+    <set>
+      <if test="backNo != null">
+        back_no = #{backNo,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="totalPrice != null">
+        total_price = #{totalPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="orderStatus != null">
+        order_status = #{orderStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="orderDesc != null">
+        order_desc = #{orderDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="finishTime != null">
+        finish_time = #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordStatus != null">
+        record_status = #{recordStatus,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where back_id = #{backId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.orange.ysy.entity.YsyOrderBack">
+    update ysy_order_back
+    set back_no = #{backNo,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=VARCHAR},
+      total_price = #{totalPrice,jdbcType=DOUBLE},
+      order_status = #{orderStatus,jdbcType=SMALLINT},
+      order_desc = #{orderDesc,jdbcType=VARCHAR},
+      finish_time = #{finishTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      record_status = #{recordStatus,jdbcType=SMALLINT}
+    where back_id = #{backId,jdbcType=VARCHAR}
+  </update>
+</mapper>

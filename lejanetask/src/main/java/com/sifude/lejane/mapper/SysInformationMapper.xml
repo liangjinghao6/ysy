@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sifude.lejane.dao.ISysInformationDao">
+
+	<resultMap id="BaseResultMap" type="com.sifude.lejane.entity.SysInformation">
+		<id column="info_id" property="infoId" jdbcType="BIGINT" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="source" property="source" jdbcType="VARCHAR" />
+		<result column="info_type" property="infoType" jdbcType="VARCHAR" />
+		<result column="info_time" property="infoTime" jdbcType="VARCHAR" />
+		<result column="info_url" property="infoUrl" jdbcType="VARCHAR" />
+		<result column="image" property="image" jdbcType="VARCHAR" />
+		<result column="content" property="content" jdbcType="VARCHAR" />
+		<result column="check_status" property="checkStatus" jdbcType="BIT" />
+		<result column="check_time" property="checkTime" jdbcType="TIMESTAMP" />
+		<result column="op_id" property="opId" jdbcType="BIGINT" />
+		<result column="op_name" property="opName" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="record_status" property="recordStatus"
+			jdbcType="SMALLINT" />
+	</resultMap>
+	
+	<select id="detail" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+			info_id, title, source, info_type, info_time, info_url, image, content,
+			check_status,
+			check_time, op_id, op_name, create_time, record_status
+		from tbl_sys_information
+		where info_id = #{infoId,jdbcType=BIGINT}
+	</select>
+</mapper>

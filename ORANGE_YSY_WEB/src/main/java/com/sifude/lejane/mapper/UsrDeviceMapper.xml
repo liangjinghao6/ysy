@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sifude.lejane.mapper.UsrDeviceMapper" >
+  <resultMap id="BaseResultMap" type="com.sifude.lejane.entity.UsrDevice" >
+    <id column="dev_id" property="devId" jdbcType="BIGINT" />
+    <result column="imei" property="imei" jdbcType="VARCHAR" />
+    <result column="serial_no" property="serialNo" jdbcType="VARCHAR" />
+    <result column="mac_address" property="macAddress" jdbcType="VARCHAR" />
+    <result column="device_info" property="deviceInfo" jdbcType="VARCHAR" />
+    <result column="phone_model" property="phoneModel" jdbcType="VARCHAR" />
+    <result column="version_no" property="versionNo" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="record_status" property="recordStatus" jdbcType="SMALLINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    dev_id, imei, serial_no, mac_address, device_info, phone_model, version_no, create_time, 
+    update_time, record_status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_usr_device
+    where dev_id = #{devId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbl_usr_device
+    where dev_id = #{devId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.sifude.lejane.entity.UsrDevice" >
+    insert into tbl_usr_device (dev_id, imei, serial_no, 
+      mac_address, device_info, phone_model, 
+      version_no, create_time, update_time, 
+      record_status)
+    values (#{devId,jdbcType=BIGINT}, #{imei,jdbcType=VARCHAR}, #{serialNo,jdbcType=VARCHAR}, 
+      #{macAddress,jdbcType=VARCHAR}, #{deviceInfo,jdbcType=VARCHAR}, #{phoneModel,jdbcType=VARCHAR}, 
+      #{versionNo,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{recordStatus,jdbcType=SMALLINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sifude.lejane.entity.UsrDevice" >
+    insert into tbl_usr_device
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="devId != null" >
+        dev_id,
+      </if>
+      <if test="imei != null" >
+        imei,
+      </if>
+      <if test="serialNo != null" >
+        serial_no,
+      </if>
+      <if test="macAddress != null" >
+        mac_address,
+      </if>
+      <if test="deviceInfo != null" >
+        device_info,
+      </if>
+      <if test="phoneModel != null" >
+        phone_model,
+      </if>
+      <if test="versionNo != null" >
+        version_no,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="recordStatus != null" >
+        record_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="devId != null" >
+        #{devId,jdbcType=BIGINT},
+      </if>
+      <if test="imei != null" >
+        #{imei,jdbcType=VARCHAR},
+      </if>
+      <if test="serialNo != null" >
+        #{serialNo,jdbcType=VARCHAR},
+      </if>
+      <if test="macAddress != null" >
+        #{macAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceInfo != null" >
+        #{deviceInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneModel != null" >
+        #{phoneModel,jdbcType=VARCHAR},
+      </if>
+      <if test="versionNo != null" >
+        #{versionNo,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordStatus != null" >
+        #{recordStatus,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sifude.lejane.entity.UsrDevice" >
+    update tbl_usr_device
+    <set >
+      <if test="imei != null" >
+        imei = #{imei,jdbcType=VARCHAR},
+      </if>
+      <if test="serialNo != null" >
+        serial_no = #{serialNo,jdbcType=VARCHAR},
+      </if>
+      <if test="macAddress != null" >
+        mac_address = #{macAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceInfo != null" >
+        device_info = #{deviceInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneModel != null" >
+        phone_model = #{phoneModel,jdbcType=VARCHAR},
+      </if>
+      <if test="versionNo != null" >
+        version_no = #{versionNo,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordStatus != null" >
+        record_status = #{recordStatus,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where dev_id = #{devId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sifude.lejane.entity.UsrDevice" >
+    update tbl_usr_device
+    set imei = #{imei,jdbcType=VARCHAR},
+      serial_no = #{serialNo,jdbcType=VARCHAR},
+      mac_address = #{macAddress,jdbcType=VARCHAR},
+      device_info = #{deviceInfo,jdbcType=VARCHAR},
+      phone_model = #{phoneModel,jdbcType=VARCHAR},
+      version_no = #{versionNo,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      record_status = #{recordStatus,jdbcType=SMALLINT}
+    where dev_id = #{devId,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,690 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sifude.lejane.dao.IUsrMemberDao">
+	<resultMap id="BaseResultMap" type="com.sifude.lejane.entity.UsrMember">
+		<id column="memb_id" property="membId" jdbcType="BIGINT" />
+		<result column="arc_id" property="arcId" jdbcType="BIGINT" />
+		<result column="hab_id" property="habId" jdbcType="BIGINT" />
+		<result column="head" property="head" jdbcType="VARCHAR" />
+		<result column="account" property="account" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="comp_id" property="compId" jdbcType="BIGINT" />
+		<result column="op_id" property="opId" jdbcType="BIGINT" />
+		<result column="service_time" property="serviceTime" jdbcType="TIMESTAMP" />
+		<result column="sex" property="sex" jdbcType="SMALLINT" />
+		<result column="age" property="age" jdbcType="SMALLINT" />
+		<result column="birthday" property="birthday" jdbcType="DATE" />
+		<result column="height" property="height" jdbcType="DOUBLE" />
+		<result column="weight" property="weight" jdbcType="DOUBLE" />
+		<result column="address" property="address" jdbcType="VARCHAR" />
+		<result column="description" property="description" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="record_status" property="recordStatus"
+			jdbcType="SMALLINT" />
+		<result column="record_delete" property="recordDelete"
+			jdbcType="INTEGER" />
+	</resultMap>
+	<resultMap id="MemberDetailResult" type="com.sifude.lejane.entity.mvo.UsrMemberDMvo" extends="BaseResultMap"></resultMap>
+	<resultMap id="MemberFilterResult" type="com.sifude.lejane.entity.mvo.UsrMemberFMvo">
+		<id column="memb_id" property="membId" jdbcType="BIGINT" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="MemberSearchResult" type="com.sifude.lejane.entity.mvo.UsrMemberSMvo">
+		<id column="memb_id" property="membId" jdbcType="BIGINT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="op_name" property="opName" jdbcType="VARCHAR" />
+		<result column="comp_name" property="compName" jdbcType="VARCHAR" />
+		<result column="archive_status" property="archiveStatus" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<select id="detail" resultMap="MemberDetailResult"
+		parameterType="java.lang.Long">
+		select
+			memb_id, arc_id, hab_id, head, account, name, phone, password, comp_id, op_id,
+			service_time,
+			sex, age, birthday, height, weight, address, description, create_time,
+			update_time,
+			record_status, record_delete
+		from tbl_usr_member
+		where memb_id = #{membId,jdbcType=BIGINT}
+	</select>
+	<select id="totalMember" resultType="java.lang.Integer">
+		select
+			count(distinct a.memb_id)
+		from tbl_usr_member a
+		left join tbl_sys_company b on a.comp_id = b.comp_id
+		left join tbl_sys_operator c on a.op_id = c.op_id
+		<where>
+			a.record_status = 0
+			<if test="name != null and name != ''">
+				And a.name like #{name, jdbcType=VARCHAR}
+			</if>
+			<if test="phone != null and phone != ''">
+				And a.phone like #{phone, jdbcType=VARCHAR}
+			</if>
+			<if test="account != null and account != ''">
+				And a.account like #{account, jdbcType=VARCHAR}
+			</if>
+			<choose>
+				<when test="archiveStatus == 0">
+					and a.arc_id is null
+				</when>
+				<when test="archiveStatus == 1">
+					and a.arc_id is not null
+				</when>
+			</choose>
+			<if test="beginTime != null">
+				And a.create_time &gt;= #{beginTime, jdbcType=TIMESTAMP}
+			</if>
+			<if test="endTime != null">
+				And a.create_time &lt;= #{endTime, jdbcType=TIMESTAMP}
+			</if>
+			<if test="opStatus != null">
+				And isnull(a.op_id) != #{opStatus, jdbcType=VARCHAR}
+			</if>
+			<if test="compName != null and compName != ''">
+				And b.name like #{compName, jdbcType=VARCHAR}
+			</if>
+			<if test="opName != null and opName != ''">
+				And c.name like #{opName, jdbcType=VARCHAR}
+			</if>
+			
+			<if test="addOpId != null and addRoleLevel == 4">
+				And a.op_id = #{addOpId, jdbcType=BIGINT}
+			</if>
+			<if test="addCompId != null and addRoleLevel != 0 and addRoleLevel != 4 ">
+				And (b.comp1_pid = #{addCompId, jdbcType=BIGINT} or b.comp2_pid = #{addCompId, jdbcType=BIGINT} or b.comp_id =#{addCompId, jdbcType=BIGINT})
+			</if>
+		</where>
+	</select>
+	<select id="searchMember" resultMap="MemberSearchResult">
+		select
+			a.memb_id, a.name, a.phone, c.name op_name, b.name comp_name, IF(a.arc_id is null,0,1) archive_status, a.create_time
+		from tbl_usr_member a
+		left join tbl_sys_company b on a.comp_id = b.comp_id
+		left join tbl_sys_operator c on a.op_id = c.op_id
+		<where>
+			a.record_status = 0
+			<if test="name != null and name != ''">
+				And a.name like #{name, jdbcType=VARCHAR}
+			</if>
+			<if test="phone != null and phone != ''">
+				And a.phone like #{phone, jdbcType=VARCHAR}
+			</if>
+			<if test="account != null and account != ''">
+				And a.account like #{account, jdbcType=VARCHAR}
+			</if>
+			<choose>
+				<when test="archiveStatus == 0">
+					and a.arc_id is null
+				</when>
+				<when test="archiveStatus == 1">
+					and a.arc_id is not null
+				</when>
+			</choose>
+			<if test="beginTime != null">
+				And a.create_time &gt;= #{beginTime, jdbcType=TIMESTAMP}
+			</if>
+			<if test="endTime != null">
+				And a.create_time &lt;= #{endTime, jdbcType=TIMESTAMP}
+			</if>
+			<if test="opStatus != null">
+				And isnull(a.op_id) != #{opStatus, jdbcType=VARCHAR}
+			</if>
+			<if test="compName != null and compName != ''">
+				And b.name like #{compName, jdbcType=VARCHAR}
+			</if>
+			<if test="opName != null and opName != ''">
+				And c.name like #{opName, jdbcType=VARCHAR}
+			</if>
+			
+			<if test="addOpId != null and addRoleLevel == 4">
+				And a.op_id = #{addOpId, jdbcType=BIGINT}
+			</if>
+			<if test="addCompId != null and addRoleLevel != 0 and addRoleLevel != 4 ">
+				And (b.comp1_pid = #{addCompId, jdbcType=BIGINT} or b.comp2_pid = #{addCompId, jdbcType=BIGINT} or b.comp_id =#{addCompId, jdbcType=BIGINT})
+			</if>
+		</where>
+		group by a.memb_id
+		order by a.create_time desc
+		limit #{offset},#{limit}
+	</select>
+	<select id="filterPhone" resultMap="MemberFilterResult">
+		select
+			a.memb_id, a.phone
+		from tbl_usr_member a
+		left join tbl_sys_company b on a.comp_id = b.comp_id
+		left join tbl_sys_company c on b.comp1_pid = c.comp1_pid or b.comp1_pid = c.comp_id
+		<where>
+			a.record_status = 0
+			and c.comp_id = #{addCompId,jdbcType=BIGINT}
+			and a.phone in
+			<foreach collection="archiveExcels" open="(" close=")" item="archive" separator=",">
+				#{archive.phone,jdbcType=VARCHAR}
+			</foreach>
+		</where>
+	</select>
+	<insert id="save" parameterType="com.sifude.lejane.entity.UsrMember">
+		insert into tbl_usr_member
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="membId != null">
+				memb_id,
+			</if>
+			<if test="arcId != null">
+				arc_id,
+			</if>
+			<if test="habId != null">
+				hab_id,
+			</if>
+			<if test="head != null">
+				head,
+			</if>
+			<if test="account != null">
+				account,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="phone != null">
+				phone,
+			</if>
+			<if test="password != null">
+				password,
+			</if>
+			<if test="compId != null">
+				comp_id,
+			</if>
+			<if test="opId != null">
+				op_id,
+			</if>
+			<if test="serviceTime != null">
+				service_time,
+			</if>
+			<if test="sex != null">
+				sex,
+			</if>
+			<if test="age != null">
+				age,
+			</if>
+			<if test="birthday != null">
+				birthday,
+			</if>
+			<if test="height != null">
+				height,
+			</if>
+			<if test="weight != null">
+				weight,
+			</if>
+			<if test="address != null">
+				address,
+			</if>
+			<if test="description != null">
+				description,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="recordStatus != null">
+				record_status,
+			</if>
+			<if test="recordDelete != null">
+				record_delete,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="membId != null">
+				#{membId,jdbcType=BIGINT},
+			</if>
+			<if test="arcId != null">
+				#{arcId,jdbcType=BIGINT},
+			</if>
+			<if test="habId != null">
+				#{habId,jdbcType=BIGINT},
+			</if>
+			<if test="head != null">
+				#{head,jdbcType=VARCHAR},
+			</if>
+			<if test="account != null">
+				#{account,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				#{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				#{password,jdbcType=VARCHAR},
+			</if>
+			<if test="compId != null">
+				#{compId,jdbcType=BIGINT},
+			</if>
+			<if test="opId != null">
+				#{opId,jdbcType=BIGINT},
+			</if>
+			<if test="serviceTime != null">
+				#{serviceTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="sex != null">
+				#{sex,jdbcType=SMALLINT},
+			</if>
+			<if test="age != null">
+				#{age,jdbcType=SMALLINT},
+			</if>
+			<if test="birthday != null">
+				#{birthday,jdbcType=DATE},
+			</if>
+			<if test="height != null">
+				#{height,jdbcType=DOUBLE},
+			</if>
+			<if test="weight != null">
+				#{weight,jdbcType=DOUBLE},
+			</if>
+			<if test="address != null">
+				#{address,jdbcType=VARCHAR},
+			</if>
+			<if test="description != null">
+				#{description,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="recordStatus != null">
+				#{recordStatus,jdbcType=SMALLINT},
+			</if>
+			<if test="recordDelete != null">
+				#{recordDelete,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateArchives" parameterType="com.sifude.lejane.entity.UsrMember">
+		update tbl_usr_member
+		<set>
+			arc_id = (select arc_id from tbl_usr_archives where memb_id = #{membId,jdbcType=BIGINT}),
+			hab_id = (select hab_id from tbl_usr_habbit where memb_id = #{membId,jdbcType=BIGINT}),
+			<if test="address != null">
+				address = #{address,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where memb_id = #{membId,jdbcType=BIGINT}
+	</update>
+	<update id="update" parameterType="com.sifude.lejane.entity.UsrMember">
+		update tbl_usr_member
+		<set>
+			<if test="arcId != null">
+				arc_id = #{arcId,jdbcType=BIGINT},
+			</if>
+			<if test="habId != null">
+				hab_id = #{habId,jdbcType=BIGINT},
+			</if>
+			<if test="head != null">
+				head = #{head,jdbcType=VARCHAR},
+			</if>
+			<if test="account != null">
+				account = #{account,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				phone = #{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				password = #{password,jdbcType=VARCHAR},
+			</if>
+			<if test="compId != null">
+				comp_id = #{compId,jdbcType=BIGINT},
+			</if>
+			<if test="opId != null">
+				op_id = #{opId,jdbcType=BIGINT},
+			</if>
+			<if test="serviceTime != null">
+				service_time = #{serviceTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="sex != null">
+				sex = #{sex,jdbcType=SMALLINT},
+			</if>
+			<if test="age != null">
+				age = #{age,jdbcType=SMALLINT},
+			</if>
+			<if test="birthday != null">
+				birthday = #{birthday,jdbcType=DATE},
+			</if>
+			<if test="height != null">
+				height = #{height,jdbcType=DOUBLE},
+			</if>
+			<if test="weight != null">
+				weight = #{weight,jdbcType=DOUBLE},
+			</if>
+			<if test="address != null">
+				address = #{address,jdbcType=VARCHAR},
+			</if>
+			<if test="description != null">
+				description = #{description,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="recordStatus != null">
+				record_status = #{recordStatus,jdbcType=SMALLINT},
+			</if>
+			<if test="recordDelete != null">
+				record_delete = #{recordDelete,jdbcType=INTEGER},
+			</if>
+		</set>
+		where memb_id = #{membId,jdbcType=BIGINT}
+	</update>
+	
+	<!-- <resultMap id="BaseResultMap" type="com.sifude.lejane.entity.UsrMember">
+		<id column="memb_id" property="membId" jdbcType="BIGINT" />
+		<result column="arc_id" property="arcId" jdbcType="BIGINT" />
+		<result column="hab_id" property="habId" jdbcType="BIGINT" />
+		<result column="head" property="head" jdbcType="VARCHAR" />
+		<result column="account" property="account" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="comp_id" property="compId" jdbcType="BIGINT" />
+		<result column="op_id" property="opId" jdbcType="BIGINT" />
+		<result column="service_time" property="serviceTime" jdbcType="TIMESTAMP" />
+		<result column="sex" property="sex" jdbcType="SMALLINT" />
+		<result column="age" property="age" jdbcType="SMALLINT" />
+		<result column="birthday" property="birthday" jdbcType="DATE" />
+		<result column="height" property="height" jdbcType="DOUBLE" />
+		<result column="weight" property="weight" jdbcType="DOUBLE" />
+		<result column="address" property="address" jdbcType="VARCHAR" />
+		<result column="description" property="description" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="record_status" property="recordStatus"
+			jdbcType="SMALLINT" />
+		<result column="record_delete" property="recordDelete"
+			jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		memb_id, arc_id, hab_id, head, account, name, phone, password, comp_id, op_id,
+		service_time,
+		sex, age, birthday, height, weight, address, description, create_time,
+		update_time,
+		record_status, record_delete
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from tbl_usr_member
+		where memb_id = #{membId,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from tbl_usr_member
+		where memb_id = #{membId,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.sifude.lejane.entity.UsrMember">
+		insert into tbl_usr_member (memb_id, arc_id, hab_id,
+		head, account, name,
+		phone, password, comp_id,
+		op_id, service_time, sex,
+		age, birthday, height,
+		weight, address, description,
+		create_time, update_time, record_status,
+		record_delete)
+		values (#{membId,jdbcType=BIGINT}, #{arcId,jdbcType=BIGINT},
+		#{habId,jdbcType=BIGINT},
+		#{head,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+		#{phone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+		#{compId,jdbcType=BIGINT},
+		#{opId,jdbcType=BIGINT}, #{serviceTime,jdbcType=TIMESTAMP}, #{sex,jdbcType=SMALLINT},
+		#{age,jdbcType=SMALLINT}, #{birthday,jdbcType=DATE},
+		#{height,jdbcType=DOUBLE},
+		#{weight,jdbcType=DOUBLE}, #{address,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+		#{recordStatus,jdbcType=SMALLINT},
+		#{recordDelete,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="com.sifude.lejane.entity.UsrMember">
+		insert into tbl_usr_member
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="membId != null">
+				memb_id,
+			</if>
+			<if test="arcId != null">
+				arc_id,
+			</if>
+			<if test="habId != null">
+				hab_id,
+			</if>
+			<if test="head != null">
+				head,
+			</if>
+			<if test="account != null">
+				account,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="phone != null">
+				phone,
+			</if>
+			<if test="password != null">
+				password,
+			</if>
+			<if test="compId != null">
+				comp_id,
+			</if>
+			<if test="opId != null">
+				op_id,
+			</if>
+			<if test="serviceTime != null">
+				service_time,
+			</if>
+			<if test="sex != null">
+				sex,
+			</if>
+			<if test="age != null">
+				age,
+			</if>
+			<if test="birthday != null">
+				birthday,
+			</if>
+			<if test="height != null">
+				height,
+			</if>
+			<if test="weight != null">
+				weight,
+			</if>
+			<if test="address != null">
+				address,
+			</if>
+			<if test="description != null">
+				description,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="recordStatus != null">
+				record_status,
+			</if>
+			<if test="recordDelete != null">
+				record_delete,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="membId != null">
+				#{membId,jdbcType=BIGINT},
+			</if>
+			<if test="arcId != null">
+				#{arcId,jdbcType=BIGINT},
+			</if>
+			<if test="habId != null">
+				#{habId,jdbcType=BIGINT},
+			</if>
+			<if test="head != null">
+				#{head,jdbcType=VARCHAR},
+			</if>
+			<if test="account != null">
+				#{account,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				#{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				#{password,jdbcType=VARCHAR},
+			</if>
+			<if test="compId != null">
+				#{compId,jdbcType=BIGINT},
+			</if>
+			<if test="opId != null">
+				#{opId,jdbcType=BIGINT},
+			</if>
+			<if test="serviceTime != null">
+				#{serviceTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="sex != null">
+				#{sex,jdbcType=SMALLINT},
+			</if>
+			<if test="age != null">
+				#{age,jdbcType=SMALLINT},
+			</if>
+			<if test="birthday != null">
+				#{birthday,jdbcType=DATE},
+			</if>
+			<if test="height != null">
+				#{height,jdbcType=DOUBLE},
+			</if>
+			<if test="weight != null">
+				#{weight,jdbcType=DOUBLE},
+			</if>
+			<if test="address != null">
+				#{address,jdbcType=VARCHAR},
+			</if>
+			<if test="description != null">
+				#{description,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="recordStatus != null">
+				#{recordStatus,jdbcType=SMALLINT},
+			</if>
+			<if test="recordDelete != null">
+				#{recordDelete,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.sifude.lejane.entity.UsrMember">
+		update tbl_usr_member
+		<set>
+			<if test="arcId != null">
+				arc_id = #{arcId,jdbcType=BIGINT},
+			</if>
+			<if test="habId != null">
+				hab_id = #{habId,jdbcType=BIGINT},
+			</if>
+			<if test="head != null">
+				head = #{head,jdbcType=VARCHAR},
+			</if>
+			<if test="account != null">
+				account = #{account,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				phone = #{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				password = #{password,jdbcType=VARCHAR},
+			</if>
+			<if test="compId != null">
+				comp_id = #{compId,jdbcType=BIGINT},
+			</if>
+			<if test="opId != null">
+				op_id = #{opId,jdbcType=BIGINT},
+			</if>
+			<if test="serviceTime != null">
+				service_time = #{serviceTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="sex != null">
+				sex = #{sex,jdbcType=SMALLINT},
+			</if>
+			<if test="age != null">
+				age = #{age,jdbcType=SMALLINT},
+			</if>
+			<if test="birthday != null">
+				birthday = #{birthday,jdbcType=DATE},
+			</if>
+			<if test="height != null">
+				height = #{height,jdbcType=DOUBLE},
+			</if>
+			<if test="weight != null">
+				weight = #{weight,jdbcType=DOUBLE},
+			</if>
+			<if test="address != null">
+				address = #{address,jdbcType=VARCHAR},
+			</if>
+			<if test="description != null">
+				description = #{description,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="recordStatus != null">
+				record_status = #{recordStatus,jdbcType=SMALLINT},
+			</if>
+			<if test="recordDelete != null">
+				record_delete = #{recordDelete,jdbcType=INTEGER},
+			</if>
+		</set>
+		where memb_id = #{membId,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.sifude.lejane.entity.UsrMember">
+		update tbl_usr_member
+		set arc_id = #{arcId,jdbcType=BIGINT},
+		hab_id = #{habId,jdbcType=BIGINT},
+		head = #{head,jdbcType=VARCHAR},
+		account = #{account,jdbcType=VARCHAR},
+		name = #{name,jdbcType=VARCHAR},
+		phone = #{phone,jdbcType=VARCHAR},
+		password = #{password,jdbcType=VARCHAR},
+		comp_id = #{compId,jdbcType=BIGINT},
+		op_id = #{opId,jdbcType=BIGINT},
+		service_time = #{serviceTime,jdbcType=TIMESTAMP},
+		sex = #{sex,jdbcType=SMALLINT},
+		age = #{age,jdbcType=SMALLINT},
+		birthday = #{birthday,jdbcType=DATE},
+		height = #{height,jdbcType=DOUBLE},
+		weight = #{weight,jdbcType=DOUBLE},
+		address = #{address,jdbcType=VARCHAR},
+		description = #{description,jdbcType=VARCHAR},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		update_time = #{updateTime,jdbcType=TIMESTAMP},
+		record_status = #{recordStatus,jdbcType=SMALLINT},
+		record_delete = #{recordDelete,jdbcType=INTEGER}
+		where memb_id = #{membId,jdbcType=BIGINT}
+	</update> -->
+</mapper>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sifude.lejane.mapper.SysPermissionMapper" >
+  <resultMap id="BaseResultMap" type="com.sifude.lejane.entity.SysPermission" >
+    <id column="sid" property="sid" jdbcType="VARCHAR" />
+    <result column="psid" property="psid" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="logo" property="logo" jdbcType="VARCHAR" />
+    <result column="html" property="html" jdbcType="VARCHAR" />
+    <result column="per_sort" property="perSort" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="record_status" property="recordStatus" jdbcType="SMALLINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sid, psid, name, logo, html, per_sort, create_time, record_status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_sys_permission
+    where sid = #{sid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tbl_sys_permission
+    where sid = #{sid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sifude.lejane.entity.SysPermission" >
+    insert into tbl_sys_permission (sid, psid, name, 
+      logo, html, per_sort, 
+      create_time, record_status)
+    values (#{sid,jdbcType=VARCHAR}, #{psid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{logo,jdbcType=VARCHAR}, #{html,jdbcType=VARCHAR}, #{perSort,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{recordStatus,jdbcType=SMALLINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sifude.lejane.entity.SysPermission" >
+    insert into tbl_sys_permission
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        sid,
+      </if>
+      <if test="psid != null" >
+        psid,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="logo != null" >
+        logo,
+      </if>
+      <if test="html != null" >
+        html,
+      </if>
+      <if test="perSort != null" >
+        per_sort,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="recordStatus != null" >
+        record_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sid != null" >
+        #{sid,jdbcType=VARCHAR},
+      </if>
+      <if test="psid != null" >
+        #{psid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null" >
+        #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="html != null" >
+        #{html,jdbcType=VARCHAR},
+      </if>
+      <if test="perSort != null" >
+        #{perSort,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordStatus != null" >
+        #{recordStatus,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sifude.lejane.entity.SysPermission" >
+    update tbl_sys_permission
+    <set >
+      <if test="psid != null" >
+        psid = #{psid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null" >
+        logo = #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="html != null" >
+        html = #{html,jdbcType=VARCHAR},
+      </if>
+      <if test="perSort != null" >
+        per_sort = #{perSort,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordStatus != null" >
+        record_status = #{recordStatus,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where sid = #{sid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sifude.lejane.entity.SysPermission" >
+    update tbl_sys_permission
+    set psid = #{psid,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      logo = #{logo,jdbcType=VARCHAR},
+      html = #{html,jdbcType=VARCHAR},
+      per_sort = #{perSort,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      record_status = #{recordStatus,jdbcType=SMALLINT}
+    where sid = #{sid,jdbcType=VARCHAR}
+  </update>
+</mapper>

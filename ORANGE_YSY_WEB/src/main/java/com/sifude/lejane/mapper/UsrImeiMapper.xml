@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sifude.lejane.mapper.UsrImeiMapper" >
+  <resultMap id="BaseResultMap" type="com.sifude.lejane.entity.UsrImei" >
+    <id column="imei_id" property="imeiId" jdbcType="BIGINT" />
+    <result column="imei" property="imei" jdbcType="VARCHAR" />
+    <result column="company" property="company" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    imei_id, imei, company
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_usr_imei
+    where imei_id = #{imeiId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbl_usr_imei
+    where imei_id = #{imeiId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.sifude.lejane.entity.UsrImei" >
+    insert into tbl_usr_imei (imei_id, imei, company
+      )
+    values (#{imeiId,jdbcType=BIGINT}, #{imei,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sifude.lejane.entity.UsrImei" >
+    insert into tbl_usr_imei
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="imeiId != null" >
+        imei_id,
+      </if>
+      <if test="imei != null" >
+        imei,
+      </if>
+      <if test="company != null" >
+        company,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="imeiId != null" >
+        #{imeiId,jdbcType=BIGINT},
+      </if>
+      <if test="imei != null" >
+        #{imei,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null" >
+        #{company,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sifude.lejane.entity.UsrImei" >
+    update tbl_usr_imei
+    <set >
+      <if test="imei != null" >
+        imei = #{imei,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null" >
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where imei_id = #{imeiId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sifude.lejane.entity.UsrImei" >
+    update tbl_usr_imei
+    set imei = #{imei,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR}
+    where imei_id = #{imeiId,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sifude.lejane.mapper.UsrCheckProblemMapper" >
+  <resultMap id="BaseResultMap" type="com.sifude.lejane.entity.UsrCheckProblem" >
+    <id column="cq_id" property="cqId" jdbcType="BIGINT" />
+    <result column="memb_id" property="membId" jdbcType="BIGINT" />
+    <result column="pro_id" property="proId" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    cq_id, memb_id, pro_id, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_usr_check_problem
+    where cq_id = #{cqId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbl_usr_check_problem
+    where cq_id = #{cqId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.sifude.lejane.entity.UsrCheckProblem" >
+    insert into tbl_usr_check_problem (cq_id, memb_id, pro_id, 
+      create_time)
+    values (#{cqId,jdbcType=BIGINT}, #{membId,jdbcType=BIGINT}, #{proId,jdbcType=BIGINT}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sifude.lejane.entity.UsrCheckProblem" >
+    insert into tbl_usr_check_problem
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cqId != null" >
+        cq_id,
+      </if>
+      <if test="membId != null" >
+        memb_id,
+      </if>
+      <if test="proId != null" >
+        pro_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cqId != null" >
+        #{cqId,jdbcType=BIGINT},
+      </if>
+      <if test="membId != null" >
+        #{membId,jdbcType=BIGINT},
+      </if>
+      <if test="proId != null" >
+        #{proId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sifude.lejane.entity.UsrCheckProblem" >
+    update tbl_usr_check_problem
+    <set >
+      <if test="membId != null" >
+        memb_id = #{membId,jdbcType=BIGINT},
+      </if>
+      <if test="proId != null" >
+        pro_id = #{proId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where cq_id = #{cqId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sifude.lejane.entity.UsrCheckProblem" >
+    update tbl_usr_check_problem
+    set memb_id = #{membId,jdbcType=BIGINT},
+      pro_id = #{proId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where cq_id = #{cqId,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sifude.lejane.dao.ISysInformationDao">
+
+	<resultMap id="BaseResultMap" type="com.sifude.lejane.entity.SysInformation">
+		<id column="info_id" property="infoId" jdbcType="BIGINT" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="source" property="source" jdbcType="VARCHAR" />
+		<result column="info_type" property="infoType" jdbcType="VARCHAR" />
+		<result column="info_time" property="infoTime" jdbcType="VARCHAR" />
+		<result column="info_url" property="infoUrl" jdbcType="VARCHAR" />
+		<result column="image" property="image" jdbcType="VARCHAR" />
+		<result column="content" property="content" jdbcType="VARCHAR" />
+		<result column="check_status" property="checkStatus" jdbcType="BIT" />
+		<result column="check_time" property="checkTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="op_id" property="opId" jdbcType="BIGINT" />
+		<result column="op_name" property="opName" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="record_status" property="recordStatus"
+			jdbcType="SMALLINT" />
+	</resultMap>
+	
+	<resultMap id="InformationDetailResult" type="com.sifude.lejane.entity.mvo.SysInformationDMvo" extends="BaseResultMap">
+	</resultMap>
+	
+	<resultMap id="InformationSearchResult" type="com.sifude.lejane.entity.mvo.SysInformationSMvo">
+		<id column="info_id" property="infoId" jdbcType="BIGINT" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="source" property="source" jdbcType="VARCHAR" />
+		<result column="info_type" property="infoType" jdbcType="VARCHAR" />
+		<result column="info_time" property="infoTime" jdbcType="VARCHAR" />
+		<result column="check_status" property="checkStatus" jdbcType="BIT" />
+		<result column="check_time" property="checkTime" jdbcType="TIMESTAMP" />
+		<result column="op_id" property="opId" jdbcType="BIGINT" />
+		<result column="op_name" property="opName" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="record_status" property="recordStatus"
+			jdbcType="SMALLINT" />
+	</resultMap>
+	
+	<select id="search" resultMap="InformationSearchResult">
+		select
+			info_id, title, source, info_type, info_time,
+			check_status, check_time, update_time, op_id, op_name, create_time, update_time, record_status
+		from tbl_sys_information
+		<where>
+			<if test="title != null and title != ''">
+				AND title like #{title,jdbcType=VARCHAR}
+			</if>
+			<if test="type != null and type != ''">
+				AND info_type = #{type,jdbcType=VARCHAR}
+			</if>
+			<choose>
+				<when test="status == 0">
+					AND record_status = 0 and check_status = 0
+					<if test="beginTime != null">
+						AND create_time &gt; #{beginTime,jdbcType=TIMESTAMP}
+					</if>
+					<if test="endTime != null">
+						AND create_time &lt; #{endTime,jdbcType=TIMESTAMP}
+					</if>
+				</when>
+				<when test="status == 1">
+					AND record_status = 0 and check_status = 1
+					<if test="beginTime != null">
+						AND check_time &gt; #{beginTime,jdbcType=TIMESTAMP}
+					</if>
+					<if test="endTime != null">
+						AND check_time &lt; #{endTime,jdbcType=TIMESTAMP}
+					</if>
+				</when>
+				<when test="status == -1">
+					AND (record_status = -1 or check_status = -1)
+					<if test="beginTime != null">
+						AND update_time &gt; #{beginTime,jdbcType=TIMESTAMP}
+					</if>
+					<if test="endTime != null">
+						AND update_time &lt; #{endTime,jdbcType=TIMESTAMP}
+					</if>
+				</when>
+			</choose>
+		</where>
+		<choose>
+			<when test="status == 0">
+				order by create_time desc
+			</when>
+			<when test="status == 1">
+				order by check_time desc
+			</when>
+			<when test="status == -1">
+				order by update_time desc
+			</when>
+		</choose>
+		limit #{offset},#{limit}
+	</select>
+	
+	<select id="total" resultType="java.lang.Integer">
+		select
+			count(1)
+		from tbl_sys_information
+		<where>
+			<if test="title != null and title != ''">
+				AND title like #{title,jdbcType=VARCHAR}
+			</if>
+			<if test="type != null and type != ''">
+				AND info_type = #{type,jdbcType=VARCHAR}
+			</if>
+			<choose>
+				<when test="status == 0">
+					AND record_status = 0 and check_status = 0
+					<if test="beginTime != null">
+						AND create_time &gt; #{beginTime,jdbcType=TIMESTAMP}
+					</if>
+					<if test="endTime != null">
+						AND create_time &lt; #{endTime,jdbcType=TIMESTAMP}
+					</if>
+				</when>
+				<when test="status == 1">
+					AND record_status = 0 and check_status = 1
+					<if test="beginTime != null">
+						AND check_time &gt; #{beginTime,jdbcType=TIMESTAMP}
+					</if>
+					<if test="endTime != null">
+						AND check_time &lt; #{endTime,jdbcType=TIMESTAMP}
+					</if>
+				</when>
+				<when test="status == -1">
+					AND (record_status = -1 or check_status = -1)
+					<if test="beginTime != null">
+						AND update_time &gt; #{beginTime,jdbcType=TIMESTAMP}
+					</if>
+					<if test="endTime != null">
+						AND update_time &lt; #{endTime,jdbcType=TIMESTAMP}
+					</if>
+				</when>
+			</choose>
+		</where>
+	</select>
+	
+	<select id="detail" resultMap="InformationDetailResult"
+		parameterType="java.lang.Long">
+		select
+			info_id, title, source, info_type, info_time, info_url, image, content,
+			check_status,
+			check_time, op_id, op_name, create_time, record_status
+		from tbl_sys_information
+		where info_id = #{infoId,jdbcType=BIGINT}
+	</select>
+	
+	<insert id="save" parameterType="com.sifude.lejane.entity.SysInformation">
+		insert into tbl_sys_information
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="infoId != null">
+				info_id,
+			</if>
+			<if test="title != null">
+				title,
+			</if>
+			<if test="source != null">
+				source,
+			</if>
+			<if test="infoType != null">
+				info_type,
+			</if>
+			<if test="infoTime != null">
+				info_time,
+			</if>
+			<if test="infoUrl != null">
+				info_url,
+			</if>
+			<if test="image != null">
+				image,
+			</if>
+			<if test="content != null">
+				content,
+			</if>
+			<if test="checkStatus != null">
+				check_status,
+			</if>
+			<if test="checkTime != null">
+				check_time,
+			</if>
+			<if test="opId != null">
+				op_id,
+			</if>
+			<if test="opName != null">
+				op_name,
+			</if>
+			create_time,
+			<if test="recordStatus != null">
+				record_status,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="infoId != null">
+				#{infoId,jdbcType=BIGINT},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="source != null">
+				#{source,jdbcType=VARCHAR},
+			</if>
+			<if test="infoType != null">
+				#{infoType,jdbcType=VARCHAR},
+			</if>
+			<if test="infoTime != null">
+				#{infoTime,jdbcType=VARCHAR},
+			</if>
+			<if test="infoUrl != null">
+				#{infoUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="image != null">
+				#{image,jdbcType=VARCHAR},
+			</if>
+			<if test="content != null">
+				#{content,jdbcType=VARCHAR},
+			</if>
+			<if test="checkStatus != null">
+				#{checkStatus,jdbcType=BIT},
+			</if>
+			<if test="checkTime != null">
+				#{checkTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="opId != null">
+				#{opId,jdbcType=BIGINT},
+			</if>
+			<if test="opName != null">
+				#{opName,jdbcType=VARCHAR},
+			</if>
+				CURRENT_TIMESTAMP,
+			<if test="recordStatus != null">
+				#{recordStatus,jdbcType=SMALLINT},
+			</if>
+		</trim>
+	</insert>
+	
+	<update id="update" parameterType="com.sifude.lejane.entity.SysInformation">
+		update tbl_sys_information
+		<set>
+			<if test="title != null">
+				title = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="source != null">
+				source = #{source,jdbcType=VARCHAR},
+			</if>
+			<if test="infoType != null">
+				info_type = #{infoType,jdbcType=VARCHAR},
+			</if>
+			<if test="infoTime != null">
+				info_time = #{infoTime,jdbcType=VARCHAR},
+			</if>
+			<if test="infoUrl != null">
+				info_url = #{infoUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="image != null">
+				image = #{image,jdbcType=VARCHAR},
+			</if>
+			<if test="content != null">
+				content = #{content,jdbcType=VARCHAR},
+			</if>
+			<if test="checkStatus != null">
+				check_status = #{checkStatus,jdbcType=BIT},
+			</if>
+			<if test="checkTime != null">
+				check_time = #{checkTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="opId != null">
+				op_id = #{opId,jdbcType=BIGINT},
+			</if>
+			<if test="opName != null">
+				op_name = #{opName,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="recordStatus != null">
+				record_status = #{recordStatus,jdbcType=SMALLINT},
+			</if>
+		</set>
+		where info_id = #{infoId,jdbcType=BIGINT}
+	</update>
+	<delete id="delete" parameterType="java.lang.Long">
+		delete from tbl_sys_information
+		where info_id = #{infoId,jdbcType=BIGINT} and check_status = -1
+	</delete>
+<!-- 	<resultMap id="BaseResultMap" type="com.sifude.lejane.entity.SysInformation">
+		<id column="info_id" property="infoId" jdbcType="BIGINT" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="source" property="source" jdbcType="VARCHAR" />
+		<result column="info_type" property="infoType" jdbcType="VARCHAR" />
+		<result column="info_time" property="infoTime" jdbcType="VARCHAR" />
+		<result column="info_url" property="infoUrl" jdbcType="VARCHAR" />
+		<result column="image" property="image" jdbcType="VARCHAR" />
+		<result column="content" property="content" jdbcType="VARCHAR" />
+		<result column="check_status" property="checkStatus" jdbcType="BIT" />
+		<result column="check_time" property="checkTime" jdbcType="TIMESTAMP" />
+		<result column="op_id" property="opId" jdbcType="BIGINT" />
+		<result column="op_name" property="opName" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="record_status" property="recordStatus"
+			jdbcType="SMALLINT" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		info_id, title, source, info_type, info_time, info_url, image, content,
+		check_status,
+		check_time, op_id, op_name, create_time, record_status
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from tbl_sys_information
+		where info_id = #{infoId,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from tbl_sys_information
+		where info_id = #{infoId,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.sifude.lejane.entity.SysInformation">
+		insert into tbl_sys_information (info_id, title, source,
+		info_type, info_time, info_url,
+		image, content, check_status,
+		check_time, op_id, op_name,
+		create_time, record_status)
+		values (#{infoId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR},
+		#{source,jdbcType=VARCHAR},
+		#{infoType,jdbcType=VARCHAR}, #{infoTime,jdbcType=VARCHAR}, #{infoUrl,jdbcType=VARCHAR},
+		#{image,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR},
+		#{checkStatus,jdbcType=BIT},
+		#{checkTime,jdbcType=TIMESTAMP}, #{opId,jdbcType=BIGINT}, #{opName,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP}, #{recordStatus,jdbcType=SMALLINT})
+	</insert>
+	<insert id="insertSelective" parameterType="com.sifude.lejane.entity.SysInformation">
+		insert into tbl_sys_information
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="infoId != null">
+				info_id,
+			</if>
+			<if test="title != null">
+				title,
+			</if>
+			<if test="source != null">
+				source,
+			</if>
+			<if test="infoType != null">
+				info_type,
+			</if>
+			<if test="infoTime != null">
+				info_time,
+			</if>
+			<if test="infoUrl != null">
+				info_url,
+			</if>
+			<if test="image != null">
+				image,
+			</if>
+			<if test="content != null">
+				content,
+			</if>
+			<if test="checkStatus != null">
+				check_status,
+			</if>
+			<if test="checkTime != null">
+				check_time,
+			</if>
+			<if test="opId != null">
+				op_id,
+			</if>
+			<if test="opName != null">
+				op_name,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="recordStatus != null">
+				record_status,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="infoId != null">
+				#{infoId,jdbcType=BIGINT},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="source != null">
+				#{source,jdbcType=VARCHAR},
+			</if>
+			<if test="infoType != null">
+				#{infoType,jdbcType=VARCHAR},
+			</if>
+			<if test="infoTime != null">
+				#{infoTime,jdbcType=VARCHAR},
+			</if>
+			<if test="infoUrl != null">
+				#{infoUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="image != null">
+				#{image,jdbcType=VARCHAR},
+			</if>
+			<if test="content != null">
+				#{content,jdbcType=VARCHAR},
+			</if>
+			<if test="checkStatus != null">
+				#{checkStatus,jdbcType=BIT},
+			</if>
+			<if test="checkTime != null">
+				#{checkTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="opId != null">
+				#{opId,jdbcType=BIGINT},
+			</if>
+			<if test="opName != null">
+				#{opName,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="recordStatus != null">
+				#{recordStatus,jdbcType=SMALLINT},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.sifude.lejane.entity.SysInformation">
+		update tbl_sys_information
+		<set>
+			<if test="title != null">
+				title = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="source != null">
+				source = #{source,jdbcType=VARCHAR},
+			</if>
+			<if test="infoType != null">
+				info_type = #{infoType,jdbcType=VARCHAR},
+			</if>
+			<if test="infoTime != null">
+				info_time = #{infoTime,jdbcType=VARCHAR},
+			</if>
+			<if test="infoUrl != null">
+				info_url = #{infoUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="image != null">
+				image = #{image,jdbcType=VARCHAR},
+			</if>
+			<if test="content != null">
+				content = #{content,jdbcType=VARCHAR},
+			</if>
+			<if test="checkStatus != null">
+				check_status = #{checkStatus,jdbcType=BIT},
+			</if>
+			<if test="checkTime != null">
+				check_time = #{checkTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="opId != null">
+				op_id = #{opId,jdbcType=BIGINT},
+			</if>
+			<if test="opName != null">
+				op_name = #{opName,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="recordStatus != null">
+				record_status = #{recordStatus,jdbcType=SMALLINT},
+			</if>
+		</set>
+		where info_id = #{infoId,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.sifude.lejane.entity.SysInformation">
+		update tbl_sys_information
+		set title = #{title,jdbcType=VARCHAR},
+		source = #{source,jdbcType=VARCHAR},
+		info_type = #{infoType,jdbcType=VARCHAR},
+		info_time = #{infoTime,jdbcType=VARCHAR},
+		info_url = #{infoUrl,jdbcType=VARCHAR},
+		image = #{image,jdbcType=VARCHAR},
+		content = #{content,jdbcType=VARCHAR},
+		check_status = #{checkStatus,jdbcType=BIT},
+		check_time = #{checkTime,jdbcType=TIMESTAMP},
+		op_id = #{opId,jdbcType=BIGINT},
+		op_name = #{opName,jdbcType=VARCHAR},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		record_status = #{recordStatus,jdbcType=SMALLINT}
+		where info_id = #{infoId,jdbcType=BIGINT}
+	</update> -->
+</mapper>

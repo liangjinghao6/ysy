@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sifude.lejane.dao.IUsrFamilyDao">
+	 <resultMap id="FamilyListResult" type="com.sifude.lejane.entity.mvo.UsrFamilyLMvo">
+		<id column="fam_id" property="famId" jdbcType="BIGINT" />
+		<result column="memb_id" property="membId" jdbcType="BIGINT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="sex" property="sex" jdbcType="BIT" />
+		<result column="birthday" property="birthday" jdbcType="DATE" />
+		<result column="releation" property="releation" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="record_status" property="recordStatus"
+			jdbcType="BIT" />
+	</resultMap>
+
+	<select id="list" resultMap="FamilyListResult"
+		parameterType="java.lang.Long">
+		select
+			fam_id, memb_id, name, sex, birthday, releation, phone, create_time,
+			record_status
+		from tbl_usr_family
+		where memb_id = #{membId,jdbcType=BIGINT}
+	</select>
+	<insert id="save" parameterType="com.sifude.lejane.entity.UsrFamily">
+		insert into tbl_usr_family
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="famId != null">
+				fam_id,
+			</if>
+			<if test="membId != null">
+				memb_id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="sex != null">
+				sex,
+			</if>
+			<if test="birthday != null">
+				birthday,
+			</if>
+			<if test="releation != null">
+				releation,
+			</if>
+			<if test="phone != null">
+				phone,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="recordStatus != null">
+				record_status,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="famId != null">
+				#{famId,jdbcType=BIGINT},
+			</if>
+			<if test="membId != null">
+				#{membId,jdbcType=BIGINT},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				#{sex,jdbcType=BIT},
+			</if>
+			<if test="birthday != null">
+				#{birthday,jdbcType=DATE},
+			</if>
+			<if test="releation != null">
+				#{releation,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				#{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="recordStatus != null">
+				#{recordStatus,jdbcType=BIT},
+			</if>
+		</trim>
+	</insert>
+	<update id="update" parameterType="com.sifude.lejane.entity.UsrFamily">
+		update tbl_usr_family
+		<set>
+			<if test="membId != null">
+				memb_id = #{membId,jdbcType=BIGINT},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				sex = #{sex,jdbcType=BIT},
+			</if>
+			<if test="birthday != null">
+				birthday = #{birthday,jdbcType=DATE},
+			</if>
+			<if test="releation != null">
+				releation = #{releation,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				phone = #{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="recordStatus != null">
+				record_status = #{recordStatus,jdbcType=BIT},
+			</if>
+		</set>
+		where fam_id = #{famId,jdbcType=BIGINT}
+	</update>
+	<delete id="delete" parameterType="java.lang.Long">
+		delete from tbl_usr_family
+		where fam_id = #{famId,jdbcType=BIGINT}
+	</delete>
+	<!-- <resultMap id="BaseResultMap" type="com.sifude.lejane.entity.UsrFamily">
+		<id column="fam_id" property="famId" jdbcType="BIGINT" />
+		<result column="memb_id" property="membId" jdbcType="BIGINT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="sex" property="sex" jdbcType="BIT" />
+		<result column="birthday" property="birthday" jdbcType="DATE" />
+		<result column="releation" property="releation" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="record_status" property="recordStatus"
+			jdbcType="BIT" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		fam_id, memb_id, name, sex, birthday, releation, phone, create_time,
+		record_status
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from tbl_usr_family
+		where fam_id = #{famId,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from tbl_usr_family
+		where fam_id = #{famId,jdbcType=BIGINT}
+	</delete>
+	<insert id="insert" parameterType="com.sifude.lejane.entity.UsrFamily">
+		insert into tbl_usr_family (fam_id, memb_id, name,
+		sex, birthday, releation,
+		phone, create_time, record_status
+		)
+		values (#{famId,jdbcType=BIGINT}, #{membId,jdbcType=BIGINT},
+		#{name,jdbcType=VARCHAR},
+		#{sex,jdbcType=BIT}, #{birthday,jdbcType=DATE}, #{releation,jdbcType=VARCHAR},
+		#{phone,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+		#{recordStatus,jdbcType=BIT}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.sifude.lejane.entity.UsrFamily">
+		insert into tbl_usr_family
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="famId != null">
+				fam_id,
+			</if>
+			<if test="membId != null">
+				memb_id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="sex != null">
+				sex,
+			</if>
+			<if test="birthday != null">
+				birthday,
+			</if>
+			<if test="releation != null">
+				releation,
+			</if>
+			<if test="phone != null">
+				phone,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="recordStatus != null">
+				record_status,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="famId != null">
+				#{famId,jdbcType=BIGINT},
+			</if>
+			<if test="membId != null">
+				#{membId,jdbcType=BIGINT},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				#{sex,jdbcType=BIT},
+			</if>
+			<if test="birthday != null">
+				#{birthday,jdbcType=DATE},
+			</if>
+			<if test="releation != null">
+				#{releation,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				#{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="recordStatus != null">
+				#{recordStatus,jdbcType=BIT},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.sifude.lejane.entity.UsrFamily">
+		update tbl_usr_family
+		<set>
+			<if test="membId != null">
+				memb_id = #{membId,jdbcType=BIGINT},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				sex = #{sex,jdbcType=BIT},
+			</if>
+			<if test="birthday != null">
+				birthday = #{birthday,jdbcType=DATE},
+			</if>
+			<if test="releation != null">
+				releation = #{releation,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				phone = #{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="recordStatus != null">
+				record_status = #{recordStatus,jdbcType=BIT},
+			</if>
+		</set>
+		where fam_id = #{famId,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.sifude.lejane.entity.UsrFamily">
+		update tbl_usr_family
+		set memb_id = #{membId,jdbcType=BIGINT},
+		name = #{name,jdbcType=VARCHAR},
+		sex = #{sex,jdbcType=BIT},
+		birthday = #{birthday,jdbcType=DATE},
+		releation = #{releation,jdbcType=VARCHAR},
+		phone = #{phone,jdbcType=VARCHAR},
+		create_time = #{createTime,jdbcType=TIMESTAMP},
+		record_status = #{recordStatus,jdbcType=BIT}
+		where fam_id = #{famId,jdbcType=BIGINT}
+	</update> -->
+</mapper>

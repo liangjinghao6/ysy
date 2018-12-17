@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sifude.lejane.dao.IStatActiveDao">
+	<!-- 删除相关统计 -->
+	<delete id="delete">
+		delete * from tbl_stat_active
+	</delete>
+	<!-- 会员体检趋势统计 -->
+	<insert id="checkStat">
+		insert 
+			into tbl_stat_active
+		(
+			 name,
+			 memb_id, 
+			 times
+		)
+			SELECT '体检趋势' as name, memb_id, count(1) from tbl_usr_data
+
+			WHERE data_type = 'bloodPressure' AND check_time &lt;= NOW()
+					AND check_time &gt;= DATE_SUB(
+						CURRENT_DATE (),
+						INTERVAL 6 DAY
+					)
+			GROUP BY memb_id
+	</insert>
+	
+	<!-- 会员心情统计 -->
+	<insert id="moodStat">
+		insert 
+			into tbl_stat_active
+		(
+			 name,
+			 memb_id, 
+			 times
+		)
+			SELECT '检测心情' as name, memb_id, count(1) from tbl_usr_data
+
+			WHERE data_type = 'mood' AND data_value = '不舒服' AND check_time &lt;= NOW()
+					AND check_time &gt;= DATE_SUB(
+						CURRENT_DATE (),
+						INTERVAL 6 DAY
+					)
+			GROUP BY memb_id
+	</insert>
+	
+	<!-- 打电话给呼叫中心记录统计 -->
+	<insert id="feedbackStat">
+		insert 
+			into tbl_stat_active
+		(
+
+			 name, 
+			memb_id,
+			 times
+		)
+			SELECT '打电话给呼叫中心的记录' as name, memb_id, count(1) from tbl_sys_feedback a LEFT join tbl_usr_member b on a.phone = b.phone
+
+			WHERE a.record_status = 0 and b.memb_id is not null 
+				AND a.create_time &lt;= NOW()
+					AND a.create_time &gt;= DATE_SUB(
+						CURRENT_DATE (),
+						INTERVAL 6 DAY
+					)
+			GROUP BY b.memb_id
+	</insert>
+	
+	<!-- 打电话给您的记录 -->
+	<insert id="callStat">
+		insert 
+			into tbl_stat_active
+		(
+
+			 name, 
+			memb_id,
+			 times
+		)
+			SELECT '打电话给呼叫中心的记录' as name, memb_id, count(1) from tbl_usr_call
+
+			WHERE create_time &lt;= NOW()
+					AND create_time &gt;= DATE_SUB(
+						CURRENT_DATE (),
+						INTERVAL 6 DAY
+					)
+			GROUP BY memb_id
+	</insert>
+	
+	<!-- 阅读健康消息记录统计 -->
+	<insert id="readStat">
+		insert 
+			into tbl_stat_active
+		(
+
+			 name, 
+			memb_id,
+			 times
+		)
+			SELECT '阅读健康消息的记录' as name, memb_id, count(DISTINCT info_id) from tbl_usr_read
+
+			WHERE create_time &lt;= NOW()
+					AND create_time &gt;= DATE_SUB(
+						CURRENT_DATE (),
+						INTERVAL 6 DAY
+					)
+			GROUP BY memb_id
+	</insert>
+	
+	<!-- 查看手机问题 -->
+	<insert id="checkproblemStat">
+		insert 
+			into tbl_stat_active
+		(
+
+			 name, 
+			memb_id,
+			 times
+		)
+			SELECT '查看手机问题的记录' as name, memb_id, count(DISTINCT pro_id) from tbl_usr_check_problem
+
+			WHERE create_time &lt;= NOW()
+					AND create_time &gt;= DATE_SUB(
+						CURRENT_DATE (),
+						INTERVAL 6 DAY
+					)
+			GROUP BY memb_id
+	</insert>
+	
+</mapper>
