@@ -1,7 +1,7 @@
 spring:
  datasource:
   name: test
-  url: jdbc:mysql://rm-2ze0fv836um74o207bo.mysql.rds.aliyuncs.com/ysy
+  url: jdbc:mysql://rm-2ze0fv836um74o207bo.mysql.rds.aliyuncs.com:3306/ysy
   username: root
   password: mysql@2018
   # 使用druid数据源
