@@ -25,7 +25,7 @@ export default {
     window: {
       backgroundTextStyle: 'dark',
       navigationBarBackgroundColor: '#fff',
-      navigationBarTitleText: 'xbyj商城',
+      navigationBarTitleText: '小颜商城',
       navigationBarTextStyle: 'black',
       'enablePullDownRefresh': true
     },
@@ -44,13 +44,7 @@ export default {
         'pagePath': 'pages/topic/topic',
         'iconPath': 'static/images/ic_menu_topic_nor.png',
         'selectedIconPath': 'static/images/ic_menu_topic_pressed.png',
-        'text': '专题'
-      },
-      {
-        'pagePath': 'pages/catalog/catalog',
-        'iconPath': 'static/images/ic_menu_sort_nor.png',
-        'selectedIconPath': 'static/images/ic_menu_sort_pressed.png',
-        'text': '分类'
+        'text': '会员'
       },
       {
         'pagePath': 'pages/cart/cart',
