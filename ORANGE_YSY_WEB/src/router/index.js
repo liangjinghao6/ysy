@@ -49,11 +49,11 @@ export const asyncRouterMap = [
   {
     path: '/user',
     component: Layout,
-    redirect: '/user',
+    meta: {title: '会员管理', icon: 'table'},
 
     children: [{
       path: 'index',
-      component: _import('user/index'),
+      component: _import('user/list/index'),
       name: '用户管理',
       meta: {
         title: '用户管理',
@@ -63,126 +63,116 @@ export const asyncRouterMap = [
     }]
   },
   {
-    path: '/data',
+    path: '/goods',
     component: Layout,
-    meta: {title: '数据管理', icon: 'table'},
+    meta: {title: '商品管理', icon: 'table'},
     children: [{
-      path: 'index',
-      component: _import('data/source/index'),
-      name: '数据源管理',
-      meta: {title: '数据源管理', icon: 'table'}
+      path: 'list',
+      component: _import('goods/list/index'),
+      name: '商品列表',
+      meta: {title: '商品列表', icon: 'table'}
+    }, {
+      path: 'category',
+      component: _import('goods/category/index'),
+      name: '商品分类',
+      meta: {title: '商品分类', icon: 'table'}
+    }, {
+      path: 'feature',
+      component: _import('goods/feature/index'),
+      name: '商品特征',
+      meta: {title: '商品特征', icon: 'table'}
+    }, {
+      path: 'class',
+      component: _import('goods/class/index'),
+      name: '商品类别',
+      meta: {title: '商品类别', icon: 'table'}
+    }, {
+      path: 'brand',
+      component: _import('goods/brand/index'),
+      name: '品牌管理',
+      meta: {title: '品牌管理', icon: 'table'}
+    }, {
+      path: 'rules',
+      component: _import('goods/rules/index'),
+      name: '销售规则',
+      meta: {title: '销售规则', icon: 'table'}
+    }, {
+      path: 'comment',
+      component: _import('goods/comment/index'),
+      name: '评论管理',
+      meta: {title: '评论管理', icon: 'table'}
+    }, {
+      path: 'star',
+      component: _import('goods/star/index'),
+      name: '收藏浏览',
+      meta: {title: '收藏浏览', icon: 'table'}
     }]
   },
   {
-    path: '/edi',
+    path: '/order',
     component: Layout,
-    redirect: '/edi',
-    meta: {
-      title: '报文模板管理',
-      icon: 'form',
-      role: ['admin']
-    },
+    meta: {title: '订单管理', icon: 'form'},
     children: [{
-      path: 'type',
-      component: _import('edi/type/index'),
-      name: '报文类型管理',
+      path: 'list',
+      component: _import('order/list/index'),
+      name: '订单列表',
       meta: {
-        title: '报文类型管理',
-        role: ['admin']
+        title: '订单列表',
       }
     }, {
-      path: 'source',
-      component: _import('edi/source/index'),
-      name: '报文来源管理',
+      path: 'address',
+      component: _import('order/address/index'),
+      name: '地址管理',
       meta: {
-        title: '报文来源管理',
-        role: ['admin']
-      }
-    }, {
-      path: 'tmp',
-      component: _import('edi/tmp/index'),
-      name: '报文模板管理',
-      meta: {
-        title: '报文模板管理',
-        role: ['admin']
-      }
-    },{
-      path: 'file',
-      component: _import('edi/report/index'),
-      name: '文件测试',
-      meta: {
-        title: '文件测试',
-        role: ['admin']
+        title: '地址管理',
       }
     }]
   },
   {
-    path: '/column',
+    path: '/inventory',
     component: Layout,
-    redirect: '/column',
     meta: {
-      title: '报文配置管理',
+      title: '库存管理',
       icon: 'clipboard',
-      role: ['admin']
     },
     children: [{
-      path: 'unfixed',
-      component: _import('column/unfixed/index'),
-      name: '不定长报文配置',
-      meta: {title: '不定长报文配置'}
+      path: 'list',
+      component: _import('inventory/list/index'),
+      name: '库存列表',
+      meta: {title: '库存列表'}
     }, {
-      path: 'fixed',
-      component: _import('column/fixed/index'),
-      name: '定长报文配置',
-      meta: {title: '定长报文配置'}
-    }, {
-      path: 'xml',
-      component: _import('column/xml/index'),
-      name: 'xml报文配置',
-      meta: {title: 'xml报文配置'}
-    }, {
-      path: 'excel',
-      component: _import('column/excel/index'),
-      name: 'excel报文配置',
-      meta: {title: 'excel报文配置'}
-    }, {
-      path: 'data',
-      component: _import('column/data/index'),
-      name: '数据源报文配置',
-      meta: {title: '数据源报文配置'}
-    }, {
-      path: 'custom',
-      component: _import('column/custom/index'),
-      name: '自定义报文配置',
-      meta: {title: '自定义报文配置'}
+      path: 'invoice',
+      component: _import('inventory/invoice/index'),
+      name: '发货单',
+      meta: {title: '发货单'}
     }]
   },
 
   {
-    path: '/lnk',
+    path: '/back',
     component: Layout,
-    meta: {title: '报文映射管理', icon: 'component'},
+    meta: {title: '退换货管理', icon: 'component'},
     children: [{
-      path: 'template',
-      component: _import('lnk/template/index'),
-      name: '报文模板映射管理',
-      meta: {title: '报文模板映射管理'}
-    }, {
-      path: 'column',
-      component: _import('lnk/column/index'),
-      name: '报文字段映射管理',
-      meta: {title: '报文字段映射管理'}
+      path: 'list',
+      component: _import('back/list/index'),
+      name: '退换货管理',
+      meta: {title: '退换货管理', icon: 'component'}
     }]
   },
   {
-    path: '/task',
+    path: '/score',
     component: Layout,
-    meta: {title: '定时任务管理'},
+    meta: {title: '积分管理', icon: 'email'},
     children: [{
-      path: 'task',
-      component: _import('task/task/index'),
-      name: '定时任务管理',
-      meta: {title: '定时任务管理', icon: 'email'}
+      path: 'list',
+      component: _import('score/list/index'),
+      name: '积分列表',
+      meta: {title: '定时任务管理'}
+    }, {
+      path: 'exchange',
+      component: _import('score/exchange/index'),
+      name: '兑换申请',
+      meta: {title: '定时任务管理'}
     }]
   },
   {
@@ -194,120 +184,5 @@ export const asyncRouterMap = [
       name: '日志管理',
       meta: {title: '日志管理', icon: 'documentation', noCache: true}
     }]
-  },
-  {
-    path: '/coder',
-    component: Layout,
-    children: [{
-      path: 'help',
-      component: _import('coder/help'),
-      name: 'GetStart',
-      meta: {title: 'GetStart', icon: 'icon', noCache: true}
-    }]
-  },
-  //
-  // {
-  // path: '/example',
-  // component: Layout,
-  // redirect: '/example/table/complex-table',
-  // name: 'example',
-  // meta: {
-  // title: 'example',
-  // icon: 'example'
-  // }
-  // },
-  //
-  // {
-  // path: '/form',
-  // component: Layout,
-  // redirect: 'noredirect',
-  // name: 'form',
-  // meta: {
-  // title: 'form',
-  // icon: 'form'
-  // },
-  // children: [
-  // { path: 'create-form', component: _import('form/create'), name:
-  // 'createForm', meta: { title: 'createForm', icon: 'table' }},
-  // { path: 'edit-form', component: _import('form/edit'), name: 'editForm',
-  // meta: { title: 'editForm', icon: 'table' }}
-  // ]
-  // },
-  //
-  // {
-  // path: '/error',
-  // component: Layout,
-  // redirect: 'noredirect',
-  // name: 'errorPages',
-  // meta: {
-  // title: 'errorPages',
-  // icon: '404'
-  // },
-  // children: [
-  // { path: '401', component: _import('errorPage/401'), name: 'page401',
-  // meta: { title: 'page401', noCache: true }},
-  // { path: '404', component: _import('errorPage/404'), name: 'page404',
-  // meta: { title: 'page404', noCache: true }}
-  // ]
-  // },
-  //
-  // {
-  // path: '/error-log',
-  // component: Layout,
-  // redirect: 'noredirect',
-  // children: [{ path: 'log', component: _import('errorLog/index'), name:
-  // 'errorLog', meta: { title: 'errorLog', icon: 'bug' }}]
-  // },
-  //
-  // {
-  // path: '/excel',
-  // component: Layout,
-  // redirect: '/excel/export-excel',
-  // name: 'excel',
-  // meta: {
-  // title: 'excel',
-  // icon: 'excel'
-  // },
-  // children: [
-  // { path: 'export-excel', component: _import('excel/exportExcel'), name:
-  // 'exportExcel', meta: { title: 'exportExcel' }},
-  // { path: 'export-selected-excel', component: _import('excel/selectExcel'),
-  // name: 'selectExcel', meta: { title: 'selectExcel' }},
-  // { path: 'upload-excel', component: _import('excel/uploadExcel'), name:
-  // 'uploadExcel', meta: { title: 'uploadExcel' }}
-  // ]
-  // },
-  //
-  // {
-  // path: '/zip',
-  // component: Layout,
-  // redirect: '/zip/download',
-  // children: [{ path: 'download', component: _import('zip/index'), name:
-  // 'exportZip', meta: { title: 'exportZip', icon: 'zip' }}]
-  // },
-  //
-  // {
-  // path: '/theme',
-  // component: Layout,
-  // redirect: 'noredirect',
-  // children: [{ path: 'index', component: _import('theme/index'), name:
-  // 'theme', meta: { title: 'theme', icon: 'theme' }}]
-  // },
-  //
-  // {
-  // path: '/clipboard',
-  // component: Layout,
-  // redirect: 'noredirect',
-  // children: [{ path: 'index', component: _import('clipboard/index'), name:
-  // 'clipboardDemo', meta: { title: 'clipboardDemo', icon: 'clipboard' }}]
-  // },
-  //
-  // {
-  // path: '/i18n',
-  // component: Layout,
-  // children: [{ path: 'index', component: _import('i18n-demo/index'), name:
-  // 'i18n', meta: { title: 'i18n', icon: 'international' }}]
-  // },
-
-  {path: '*', redirect: '/404', hidden: true}
+  }
 ]

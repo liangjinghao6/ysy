@@ -3,6 +3,7 @@ import store from '@/store'
 import App from '@/App'
 import MpvueRouterPatch from 'mpvue-router-patch'
 
+//Vue.prototype.$http = fly
 Vue.config.productionTip = false
 Vue.use(MpvueRouterPatch)
 

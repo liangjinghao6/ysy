@@ -6,8 +6,8 @@
 
     <div class="right-menu">
 
-      <error-log v-if="log.length>0" class="errLog-container right-menu-item" :logsList="log"></error-log>
-
+ <!--     <error-log v-if="log.length>0" class="errLog-container right-menu-item" :logsList="log"></error-log>
+-->
       <el-tooltip effect="dark" content="全屏" placement="bottom">
         <screenfull class="screenfull right-menu-item"></screenfull>
       </el-tooltip>
@@ -28,7 +28,7 @@
 
       <el-dropdown class="avatar-container right-menu-item" trigger="click">
         <div class="avatar-wrapper">
-          <img class="user-avatar" :src="avatar+'?imageView2/1/w/80/h/80'">
+          <img class="user-avatar" :src="'?imageView2/1/w/80/h/80'">
           <i class="el-icon-caret-bottom"></i>
         </div>
         <el-dropdown-menu slot="dropdown">
@@ -77,7 +77,6 @@ export default {
     ...mapGetters([
       'sidebar',
       'name',
-      'avatar',
       'language'
     ])
   },

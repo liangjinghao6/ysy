@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.orange.ysy.mapper.YsyUserAddressMapper">
+  <resultMap id="BaseResultMap" type="com.orange.ysy.entity.YsyUserAddress">
+    <id column="address_id" jdbcType="VARCHAR" property="addressId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="picker_name" jdbcType="VARCHAR" property="pickerName" />
+    <result column="picker_phone" jdbcType="VARCHAR" property="pickerPhone" />
+    <result column="picker_address" jdbcType="VARCHAR" property="pickerAddress" />
+    <result column="is_default" jdbcType="BIT" property="isDefault" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="record_status" jdbcType="SMALLINT" property="recordStatus" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    address_id, user_id, picker_name, picker_phone, picker_address, is_default, create_time, 
+    update_time, record_status
+  </sql>
+  <select id="selectByExample" parameterType="com.orange.ysy.entity.YsyUserAddressExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ysy_user_address
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ysy_user_address
+    where address_id = #{addressId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ysy_user_address
+    where address_id = #{addressId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.orange.ysy.entity.YsyUserAddressExample">
+    delete from ysy_user_address
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.orange.ysy.entity.YsyUserAddress">
+    insert into ysy_user_address (address_id, user_id, picker_name, 
+      picker_phone, picker_address, is_default, 
+      create_time, update_time, record_status
+      )
+    values (#{addressId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{pickerName,jdbcType=VARCHAR}, 
+      #{pickerPhone,jdbcType=VARCHAR}, #{pickerAddress,jdbcType=VARCHAR}, #{isDefault,jdbcType=BIT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{recordStatus,jdbcType=SMALLINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.orange.ysy.entity.YsyUserAddress">
+    insert into ysy_user_address
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="addressId != null">
+        address_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="pickerName != null">
+        picker_name,
+      </if>
+      <if test="pickerPhone != null">
+        picker_phone,
+      </if>
+      <if test="pickerAddress != null">
+        picker_address,
+      </if>
+      <if test="isDefault != null">
+        is_default,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="recordStatus != null">
+        record_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="addressId != null">
+        #{addressId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="pickerName != null">
+        #{pickerName,jdbcType=VARCHAR},
+      </if>
+      <if test="pickerPhone != null">
+        #{pickerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="pickerAddress != null">
+        #{pickerAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="isDefault != null">
+        #{isDefault,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordStatus != null">
+        #{recordStatus,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.orange.ysy.entity.YsyUserAddressExample" resultType="java.lang.Long">
+    select count(*) from ysy_user_address
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ysy_user_address
+    <set>
+      <if test="record.addressId != null">
+        address_id = #{record.addressId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pickerName != null">
+        picker_name = #{record.pickerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pickerPhone != null">
+        picker_phone = #{record.pickerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pickerAddress != null">
+        picker_address = #{record.pickerAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDefault != null">
+        is_default = #{record.isDefault,jdbcType=BIT},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.recordStatus != null">
+        record_status = #{record.recordStatus,jdbcType=SMALLINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ysy_user_address
+    set address_id = #{record.addressId,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      picker_name = #{record.pickerName,jdbcType=VARCHAR},
+      picker_phone = #{record.pickerPhone,jdbcType=VARCHAR},
+      picker_address = #{record.pickerAddress,jdbcType=VARCHAR},
+      is_default = #{record.isDefault,jdbcType=BIT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      record_status = #{record.recordStatus,jdbcType=SMALLINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.orange.ysy.entity.YsyUserAddress">
+    update ysy_user_address
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="pickerName != null">
+        picker_name = #{pickerName,jdbcType=VARCHAR},
+      </if>
+      <if test="pickerPhone != null">
+        picker_phone = #{pickerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="pickerAddress != null">
+        picker_address = #{pickerAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="isDefault != null">
+        is_default = #{isDefault,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordStatus != null">
+        record_status = #{recordStatus,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where address_id = #{addressId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.orange.ysy.entity.YsyUserAddress">
+    update ysy_user_address
+    set user_id = #{userId,jdbcType=VARCHAR},
+      picker_name = #{pickerName,jdbcType=VARCHAR},
+      picker_phone = #{pickerPhone,jdbcType=VARCHAR},
+      picker_address = #{pickerAddress,jdbcType=VARCHAR},
+      is_default = #{isDefault,jdbcType=BIT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      record_status = #{recordStatus,jdbcType=SMALLINT}
+    where address_id = #{addressId,jdbcType=VARCHAR}
+  </update>
+</mapper>

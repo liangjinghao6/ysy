@@ -1,0 +1,271 @@
+<template>
+
+  <el-dialog title="编辑" :visible.sync="visiable" width='60%'>
+    <el-form class="small-space" label-width="120px" :model="formInfo" ref="formInfo" :inline="true">
+      <el-row justify="space-around">
+
+
+        <el-col :span="12">
+          <el-form-item label="商品名称" prop="goodsName" :rules="$r(1,0,50)">
+            <el-input type="text" v-model="formInfo.goodsName" placeholder="请输入商品名称">
+            </el-input>
+          </el-form-item>
+        </el-col>
+
+        <el-col :span="12">
+          <el-form-item label="商品分类" prop="categoryId" :rules="$r(1,0,36)">
+            <goodscategorysel v-model="formInfo.categoryId" :impValue="formInfo.categoryId" placeholder="请输入商品分类"></goodscategorysel>
+          </el-form-item>
+        </el-col>
+
+        <el-col :span="12">
+          <el-form-item label="商品品牌" prop="brandId" :rules="$r(1,0,36)">
+            <goodsbrandsel v-model="formInfo.brandId" :impValue="formInfo.brandId" placeholder="请输入商品品牌"></goodsbrandsel>
+          </el-form-item>
+        </el-col>
+
+        <el-col :span="12">
+          <el-form-item label="商品特征" prop="classes" >
+            <mgoodsclasssel v-model="formInfo.classes" :impValue="formInfo.classes" placeholder="请输入商品特征"></mgoodsclasssel>
+          </el-form-item>
+        </el-col>
+
+        <el-col :span="12">
+          <el-form-item label="商品价格" prop="goodsPrice" :rules="$r(1,0,999999,'number')">
+            <el-input-number type="text" v-model="formInfo.goodsPrice" placeholder="请输入商品价格">
+            </el-input-number>
+          </el-form-item>
+        </el-col>
+
+        <el-col :span="12">
+          <el-form-item label="商品图片" prop="goodsImg">
+            <el-upload
+
+              action="/iweb/file/upload"
+              list-type="picture-card"
+              :on-remove="handleImageRemove"
+              :on-success="handleImageSuccess"
+              :limit="1">
+              <i class="el-icon-plus"></i>
+            </el-upload>
+          </el-form-item>
+        </el-col>
+
+        <el-col :span="12">
+          <el-form-item label="商品库存" prop="inventory" :rules="$r(1,0,999999,'number')">
+            <el-input-number type="text" v-model="formInfo.inventory" placeholder="请输入商品库存">
+            </el-input-number>
+          </el-form-item>
+        </el-col>
+
+        <el-col :span="12">
+          <el-form-item label="商品其他" prop="goodsOther" :rules="$r(0,0,255)">
+            <el-input type="text" v-model="formInfo.goodsOther" placeholder="请输入商品其他">
+            </el-input>
+          </el-form-item>
+        </el-col>
+
+        <el-col :span="24">
+          <el-form-item label="商品描述" prop="description" :rules="$r(1,0,255)">
+            <el-input type="text" v-model="formInfo.description" placeholder="请输入商品描述">
+            </el-input>
+          </el-form-item>
+        </el-col>
+
+        <el-col :span="24">
+          <el-form-item label="缩略图" prop="goodsImg">
+            <el-upload
+              action="/iweb/file/upload"
+              list-type="picture-card"
+              :on-remove="handleSimpleImageRemove"
+              :on-success="handleSimpleImageSuccess">
+              <i class="el-icon-plus"></i>
+            </el-upload>
+          </el-form-item>
+        </el-col>
+
+        <el-col :span="24">
+          <el-form-item label="轮播图" prop="goodsImg">
+            <el-upload
+              action="/iweb/file/upload"
+              list-type="picture-card"
+              :on-remove="handleWheelImageRemove"
+              :on-success="handleWheelImageSuccess">
+              <i class="el-icon-plus"></i>
+            </el-upload>
+          </el-form-item>
+        </el-col>
+
+        <el-col :span="24">
+          <el-form-item label="展示详情图" prop="goodsImg">
+            <el-upload
+              action="/iweb/file/upload"
+              list-type="picture-card"
+              :on-remove="handleDetailsImageRemove"
+              :on-success="handleDetailsImageSuccess">
+              <i class="el-icon-plus"></i>
+            </el-upload>
+          </el-form-item>
+        </el-col>
+
+        <el-col :span="24">
+          <el-form-item label="推广图" prop="goodsImg">
+            <el-upload
+              action="/iweb/file/upload"
+              list-type="picture-card"
+              :on-remove="handleExtensionImageRemove"
+              :on-success="handleExtensionImageSuccess">
+              <i class="el-icon-plus"></i>
+            </el-upload>
+          </el-form-item>
+        </el-col>
+      </el-row>
+    </el-form>
+    <div slot="footer" class="dialog-footer">
+      <el-button @click="visiable = false">取 消</el-button>
+      <el-button type="primary" @click="submit" :loading="loading"> 确 定</el-button>
+    </div>
+
+    <!--<el-dialog :visible.sync="dialogVisible">-->
+      <!--<img width="100%" :src="dialogImageUrl" alt="">-->
+    <!--</el-dialog>-->
+  </el-dialog>
+
+</template>
+
+<script>
+  import goodscategorysel from '@/views/comsel/goodscategorysel'
+  import goodsbrandsel from '@/views/comsel/goodsbrandsel'
+  import mgoodsclasssel from '@/views/comsel/mgoodsclasssel'
+  export default {
+    name: 'goodsform',
+    components: {
+      goodscategorysel,goodsbrandsel,mgoodsclasssel
+    },
+    data() {
+      return {
+        formInfo: {
+          simpleImage:[],
+          wheelImage:[],
+          detailsImage:[],
+          extensionImage:[],
+          classes:[],
+        },
+        visiable: false,
+        loading: false,
+        method: 'add',
+        //dialogImageUrl: '',
+        //dialogVisible: false
+      }
+    },
+    methods: {
+      show(id, method) {
+        this.method = method
+
+        //弹窗重复使用时,清除校验项目
+        if (this.$refs['formInfo'])
+          this.$refs['formInfo'].resetFields()
+        this.visiable = true
+        if (method == 'add') {
+          return;
+        }
+        this.$http.get('/iweb/goods/detail/' + id).then(response => {
+          const data = response.data.result
+          this.formInfo = data
+        })
+      },
+      submit() {
+        this.$refs['formInfo'].validate((valid) => {
+          if (!valid) {
+            return false;
+          }
+          if (this.method == 'add') {
+            this.add();
+          } else if (this.method == 'update') {
+            this.update();
+          }
+        })
+      },
+      add() {
+        this.loading = true
+        this.$http.post('/iweb/goods/add', this.formInfo).then(response => {
+          this.loading = false
+          const data = response.data
+          this.$message({
+            type: data.status ? 'success' : 'error',
+            message: data.message
+          })
+          if (!data.status) {
+            return
+          }
+          this.$emit('save-ok')
+          this.visiable = false
+        }, () => {
+          this.loading = false
+          this.$message({
+            type: 'error',
+            message: "操作失败",
+          })
+        })
+      },
+      update() {
+        this.loading = true
+        this.$http.post('/iweb/goods/update', this.formInfo).then(response => {
+          this.loading = false
+          const data = response.data
+          this.$message({
+            type: data.status ? 'success' : 'error',
+            message: data.message
+          })
+          if (!data.status) {
+            return
+          }
+          this.$emit('save-ok')
+          this.visiable = false
+        }, () => {
+          this.loading = false
+          this.$message({
+            type: 'error',
+            message: "操作失败",
+          })
+        })
+      },
+      handleImageRemove(file, fileList) {
+        this.formInfo.goodsImage=null;
+      },
+      // handlePictureCardPreview(file) {
+      //   const filename = file.response.result.name + file.response.result.suffix;
+      //
+      //   this.dialogImageUrl = `/iweb/file/print/${filename}`;
+      //   this.dialogVisible = true;
+      // },
+      handleImageSuccess(respones,file,fileList){
+        this.formInfo.goodsImage = file.response.result.fileId;
+      },
+      handleSimpleImageRemove(file, fileList) {
+        this.formInfo.simpleImage.unshift(file.response.result.fileId);
+      },
+      handleSimpleImageSuccess(respones,file,fileList){
+        this.formInfo.simpleImage.push(file.response.result.fileId);
+      },
+      handleDetailsImageRemove(file, fileList) {
+        this.formInfo.detailsImage.unshift(file.response.result.fileId);
+      },
+      handleDetailsImageSuccess(respones,file,fileList){
+        this.formInfo.detailsImage.push(file.response.result.fileId);
+      },
+      handleWheelImageRemove(file, fileList) {
+        this.formInfo.wheelImage.unshift(file.response.result.fileId);
+      },
+      handleWheelImageSuccess(respones,file,fileList){
+        this.formInfo.wheelImage.push(file.response.result.fileId);
+      },
+      handleExtensionImageRemove(file, fileList) {
+        this.formInfo.extensionImage.unshift(file.response.result.fileId);
+      },
+      handleExtensionImageSuccess(respones,file,fileList){
+        this.formInfo.extensionImage.push(file.response.result.fileId);
+      },
+    }
+  }
+</script>

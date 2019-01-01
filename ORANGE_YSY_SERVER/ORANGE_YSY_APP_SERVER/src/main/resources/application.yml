@@ -1,0 +1,39 @@
+server:
+  port: 8360
+  servlet:
+    context-path: /iapp
+spring:
+ datasource:
+  name: test
+  url: jdbc:mysql://rm-2ze0fv836um74o207bo.mysql.rds.aliyuncs.com:3306/ysy?useSSL=false&useUnicode=true&characterEncoding=UTF-8
+  username: root
+  password: mysql@2018
+  # 使用druid数据源
+  type: com.alibaba.druid.pool.DruidDataSource
+  driver-class-name: com.mysql.cj.jdbc.Driver
+  filters: stat
+  maxActive: 20
+  initialSize: 1
+  maxWait: 60000
+  minIdle: 1
+  timeBetweenEvictionRunsMillis: 60000
+  minEvictableIdleTimeMillis: 300000
+  validationQuery: select 'x'
+  testWhileIdle: true
+  testOnBorrow: false
+  testOnReturn: false
+  poolPreparedStatements: true
+  maxOpenPreparedStatements: 20
+ mybatis:
+  mapperLocations: classpath*:com/orange/ysy/mapper/*Mapper.xml
+  typeAliasesPackage: com.orange.ysy.entity
+logging:
+ level:
+   root: ERROR
+   org.springframework.web: ERROR
+   com.orange: DEBUG
+   org.mybatis: DEBUG
+orange.ysy:
+  file:
+    upload.path: X:/data/orange/file
+    type: .jpg,.png,.jpeg
