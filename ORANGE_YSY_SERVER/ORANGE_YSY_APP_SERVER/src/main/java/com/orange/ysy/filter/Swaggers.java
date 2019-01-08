@@ -3,7 +3,7 @@ package com.orange.ysy.filter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.orange.ysy.annotation.SwaggerShow;
+import com.orange.ysy.annotations.SwaggerShow;
 
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
