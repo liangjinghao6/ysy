@@ -39,6 +39,21 @@ public class YsyGoodsCategory {
      */
     private Short recordStatus;
 
+    /**
+     * 类别图标
+     */
+    private String categoryIcon;
+
+    /**
+     * 类别跳转url
+     */
+    private String categoryUrl;
+
+    /**
+     * 类别图片
+     */
+    private String categoryImg;
+
     public String getCategoryId() {
         return categoryId;
     }
@@ -95,5 +110,29 @@ public class YsyGoodsCategory {
 
     public void setRecordStatus(Short recordStatus) {
         this.recordStatus = recordStatus;
+    }
+
+    public String getCategoryIcon() {
+        return categoryIcon;
+    }
+
+    public void setCategoryIcon(String categoryIcon) {
+        this.categoryIcon = categoryIcon == null ? null : categoryIcon.trim();
+    }
+
+    public String getCategoryUrl() {
+        return categoryUrl;
+    }
+
+    public void setCategoryUrl(String categoryUrl) {
+        this.categoryUrl = categoryUrl == null ? null : categoryUrl.trim();
+    }
+
+    public String getCategoryImg() {
+        return categoryImg;
+    }
+
+    public void setCategoryImg(String categoryImg) {
+        this.categoryImg = categoryImg == null ? null : categoryImg.trim();
     }
 }

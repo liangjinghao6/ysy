@@ -3,7 +3,9 @@ import store from '@/store'
 import App from '@/App'
 import MpvueRouterPatch from 'mpvue-router-patch'
 
-//Vue.prototype.$http = fly
+var Fly=require("flyio/dist/npm/wx")
+let fly=new Fly
+Vue.prototype.$http = fly
 Vue.config.productionTip = false
 Vue.use(MpvueRouterPatch)
 

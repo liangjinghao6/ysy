@@ -45,6 +45,7 @@
               list-type="picture-card"
               :on-remove="handleImageRemove"
               :on-success="handleImageSuccess"
+              :file-list=" [{name: formInfo.brandIcon, url: '/iweb/file/print/' + formInfo.goodsImg}]"
               :limit="1">
               <i class="el-icon-plus"></i>
             </el-upload>
@@ -73,48 +74,52 @@
         </el-col>
 
         <el-col :span="24">
-          <el-form-item label="缩略图" prop="goodsImg">
+          <el-form-item label="缩略图" prop="simpleImage">
             <el-upload
               action="/iweb/file/upload"
               list-type="picture-card"
               :on-remove="handleSimpleImageRemove"
-              :on-success="handleSimpleImageSuccess">
+              :on-success="handleSimpleImageSuccess"
+              :file-list="simpleImageList">
               <i class="el-icon-plus"></i>
             </el-upload>
           </el-form-item>
         </el-col>
 
         <el-col :span="24">
-          <el-form-item label="轮播图" prop="goodsImg">
+          <el-form-item label="轮播图" prop="wheelImage">
             <el-upload
               action="/iweb/file/upload"
               list-type="picture-card"
               :on-remove="handleWheelImageRemove"
-              :on-success="handleWheelImageSuccess">
+              :on-success="handleWheelImageSuccess"
+              :file-list="wheelImageList">
               <i class="el-icon-plus"></i>
             </el-upload>
           </el-form-item>
         </el-col>
 
         <el-col :span="24">
-          <el-form-item label="展示详情图" prop="goodsImg">
+          <el-form-item label="展示详情图" prop="detailsImage">
             <el-upload
               action="/iweb/file/upload"
               list-type="picture-card"
               :on-remove="handleDetailsImageRemove"
-              :on-success="handleDetailsImageSuccess">
+              :on-success="handleDetailsImageSuccess"
+              :file-list="detailsImageList">
               <i class="el-icon-plus"></i>
             </el-upload>
           </el-form-item>
         </el-col>
 
         <el-col :span="24">
-          <el-form-item label="推广图" prop="goodsImg">
+          <el-form-item label="推广图" prop="extensionImage">
             <el-upload
               action="/iweb/file/upload"
               list-type="picture-card"
               :on-remove="handleExtensionImageRemove"
-              :on-success="handleExtensionImageSuccess">
+              :on-success="handleExtensionImageSuccess"
+              :file-list="extensionImageList">
               <i class="el-icon-plus"></i>
             </el-upload>
           </el-form-item>
@@ -145,12 +150,16 @@
     data() {
       return {
         formInfo: {
-          simpleImage:[],
-          wheelImage:[],
-          detailsImage:[],
-          extensionImage:[],
-          classes:[],
+          simpleImage: [],
+          wheelImage: [],
+          detailsImage: [],
+          extensionImage: [],
+          classes: [],
         },
+        simpleImageList: [],
+        wheelImageList: [],
+        detailsImageList: [],
+        extensionImageList: [],
         visiable: false,
         loading: false,
         method: 'add',
@@ -171,6 +180,23 @@
         }
         this.$http.get('/iweb/goods/detail/' + id).then(response => {
           const data = response.data.result
+          this.simpleImageList = new Array();
+          this.wheelImageList = new Array();
+          this.detailsImageList = new Array();
+          this.extensionImageList = new Array();
+          for (let i=0; i<data.simpleImage.length; i++) {
+            this.simpleImageList.push({name: data.simpleImage[i].orgName, url: '/iweb/file/print/' + data.simpleImage[i].name + data.simpleImage[i].suffix})
+          }
+          for (let i=0; i<data.wheelImage.length; i++) {
+            this.wheelImageList.push({name: data.wheelImage[i].orgName, url: '/iweb/file/print/' + data.wheelImage[i].name + data.wheelImage[i].suffix})
+          }
+          for (let i=0; i<data.detailsImage.length; i++) {
+            this.detailsImageList.push({name: data.detailsImage[i].orgName, url: '/iweb/file/print/' + data.detailsImage[i].name + data.detailsImage[i].suffix})
+          }
+          for (let i=0; i<data.extensionImage.length; i++) {
+            this.extensionImageList.push({name: data.extensionImage[i].orgName, url: '/iweb/file/print/' + data.extensionImage[i].name + data.extensionImage[i].suffix})
+          }
+
           this.formInfo = data
         })
       },

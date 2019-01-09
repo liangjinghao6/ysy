@@ -23,14 +23,41 @@
         </el-col>
 
         <el-col :span="12">
+          <el-form-item label="类别链接" prop="categoryUrl" :rules="$r(0,0,50)">
+            <el-input type="text" v-model="formInfo.categoryUrl" placeholder="请输入类别链接">
+            </el-input>
+          </el-form-item>
         </el-col>
 
         <el-col :span="12">
+          <el-form-item label="类别图标" prop="categoryIcon">
+            <el-upload
+
+              action="/iweb/file/upload"
+              list-type="picture-card"
+              :on-remove="handleIconRemove"
+              :on-success="handleIconSuccess"
+              :file-list=" [{name: formInfo.categoryIcon, url: '/iweb/file/print/' + formInfo.categoryIcon}]"
+              :limit="1">
+              <i class="el-icon-plus"></i>
+            </el-upload>
+          </el-form-item>
         </el-col>
 
         <el-col :span="12">
-        </el-col>
+          <el-form-item label="类别背景" prop="categoryImg">
+            <el-upload
 
+              action="/iweb/file/upload"
+              list-type="picture-card"
+              :on-remove="handleImageRemove"
+              :on-success="handleImageSuccess"
+              :file-list=" [{name: formInfo.categoryImg, url: '/iweb/file/print/' + formInfo.categoryImg}]"
+              :limit="1">
+              <i class="el-icon-plus"></i>
+            </el-upload>
+          </el-form-item>
+        </el-col>
       </el-row>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -123,6 +150,17 @@
             message: "操作失败",
           })
         })
+      },handleImageRemove(file, fileList) {
+        this.formInfo.categoryImg=null;
+      },
+      handleImageSuccess(respones,file,fileList){
+        this.formInfo.categoryImg = file.response.result.fileName;
+      },
+      handleIconRemove(file, fileList) {
+        this.formInfo.categoryIcon=null;
+      },
+      handleIconSuccess(respones,file,fileList){
+        this.formInfo.categoryIcon = file.response.result.fileName;
       },
     }
   }

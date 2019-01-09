@@ -2,8 +2,8 @@
 <div>
     <view class="container">
     <swiper class="goodsimgs" indicator-dots="true" autoplay="true" interval="3000" duration="1000">
-        <swiper-item v-for="(item, index) of gallery" :key="item.id" :data-index="index">
-        <img :src="item.img_url" background-size="cover"/>
+        <swiper-item v-for="(item, index) of goods.wheelImage" :key="item.id" :data-index="index">
+        <img :src="'http://localhost:8360/iapp/file/print/' + item.name + item.suffix" background-size="cover"/>
         </swiper-item>
     </swiper>
     <view class="service-policy">
@@ -13,12 +13,12 @@
     </view>
     <view class="goods-info">
         <view class="c">
-        <text class="name">{{goods.name}}</text>
-        <text class="desc">{{goods.goods_brief}}</text>
-        <text class="price">￥{{goods.retail_price}}</text>
+        <text class="name">{{goods.goodsName}}</text>
+        <text class="desc">{{goods.description}}</text>
+        <text class="price">￥{{goods.goodsPrice}}</text>
         <view class="brand" v-if="brand.name">
-            <navigator :url="'../brand/brandDetail?id=' + brand.id">
-            <text>{{brand.name}}</text>
+            <navigator :url="'../brand/brandDetail?id=' + goods.brand.brandId">
+            <text>{{goods.brand.brandName}}</text>
             </navigator>
         </view>
         </view>
@@ -27,15 +27,15 @@
         <view class="t">请选择规格数量</view>
         <img class="i" src="/static/images/address_right.png" background-size="cover"/>
     </view>
-    <view class="section-nav section-act">
+   <!-- <view class="section-nav section-act">
         <view class="t">
             <view class="label">1个促销:</view>
             <view class="tag">万圣趴</view>
             <view class="text">全场满499，额外送糖果</view>
         </view>
         <img class="i" src="/static/images/address_right.png" background-size="cover"/>
-    </view>
-    <view class="comments" v-if="comment.count > 0">
+    </view>-->
+    <!--<view class="comments" v-if="comment.count > 0">
         <view class="h">
         <navigator :url="'../comment/comment?valueId=' + goods.id + '&typeId=0'">
             <text class="t">评价({{comment.count > 999 ? '999+' : comment.count}})</text>
@@ -60,36 +60,36 @@
             <view class="spec">白色 2件</view>
         </view>
         </view>
-    </view>
-    <view class="goods-attr">
+    </view>-->
+    <!--<view class="goods-attr">
         <view class="t">商品参数</view>
         <view class="l">
-        <view class="item" v-for="(item, index) of attribute" :key="item.name" :data-index="index">
-            <text class="left">{{item.name}}</text>
-            <text class="right">{{item.value}}</text>
+        <view class="item" v-for="(item, index) of goods.classes" :key="item.fcId" :data-index="index">
+            <text class="left">{{item.featureId}}</text>
+            <text class="right">{{item.classId}}</text>
         </view>
         </view>
-    </view>
-    <div>
-        <wxParse :content="goodDetailHTMLstr" />
-    </div>
-    <view class="common-problem">
-        <view class="h">
-        <view class="line"></view>
-        <text class="title">常见问题</text>
-        </view>
-        <view class="b">
-        <view class="item" v-for="(item, index) of issueList" :key="item.id" :data-index="index">
-            <view class="question-box">
-            <text class="spot"></text>
-            <text class="question">{{item.question}}</text>
-            </view>
-            <view class="answer">
-            {{item.answer}}
-            </view>
-        </view>
-        </view>
-    </view>
+    </view>-->
+      <!-- <div>
+           <wxParse :content="goodDetailHTMLstr" />
+       </div>
+       <view class="common-problem">
+           <view class="h">
+           <view class="line"></view>
+           <text class="title">常见问题</text>
+           </view>
+           <view class="b">
+           <view class="item" v-for="(item, index) of issueList" :key="item.id" :data-index="index">
+               <view class="question-box">
+               <text class="spot"></text>
+               <text class="question">{{item.question}}</text>
+               </view>
+               <view class="answer">
+               {{item.answer}}
+               </view>
+           </view>
+           </view>
+       </view>-->
 
     <view class="related-goods" v-if="relatedGoods.length">
         <view class="h">
@@ -113,19 +113,19 @@
         <img class="icon" src="/static/images/icon_close.png"/>
         </view>
         <view class="img-info">
-        <img class="img" :src="gallery[0].img_url"/>
+        <img class="img" :src="'http://localhost:8360/iapp/file/print/' + goods.goodsImg"/>
         <view class="info">
             <view class="c">
-            <view class="p">价格：￥{{goods.retail_price}}</view>
-            <view class="a" v-if="productList.length">已选择：{{checkedSpecText}}</view>
+            <view class="p">价格：￥{{goods.goodsPrice}}</view>
+            <!--<view class="a" v-if="goods.classes.length">已选择：{{checkedSpecText}}</view>-->
             </view>
         </view>
         </view>
         <view class="spec-con">
-        <view class="spec-item" v-for="(item, index) of specificationList" :key="item.specification_id" :data-index="index">
-            <view class="name">{{item.name}}</view>
+        <view class="spec-item" v-for="(item, index) of goods.features" :key="item.featureId" :data-index="index">
+            <view class="name">{{item.featureName}}</view>
             <view class="values">
-            <view :class="iitem.checked ? 'selected value' : 'value'" @click="clickSkuValue" v-for="(iitem, iindex) of item.valueList" :key="iitem.id" :data-value-id="iitem.id" :data-index="iindex" :data-name-id="iitem.specification_id">{{iitem.value}}</view>
+            <view :class="iitem.checked ? 'selected value' : 'value'" @click="clickSkuValue" v-for="(iitem, iindex) of item.classes" :key="iitem.classId" :data-value-id="iitem.classId" :data-index="iindex" :data-name-id="iitem.classId">{{iitem.className}}</view>
             </view>
         </view>
         <view class="number-item">
@@ -187,20 +187,18 @@ export default {
       goodDetailHTMLstr: ''
     }
   },
-  async mounted () {
-    if (this.$route.query.id) {
-      this.id = parseInt(this.$route.query.id);
-    }
-    await Promise.all([
-      this.getGoodsInfo()
-    ]);
-    const res = await api.getCartGoodsCount();
-    // console.log('购物车商品数量,请求结果', res);
-    if (res.errno === 0) {
-      this.cartGoodsCount = res.data.cartTotal.goodsCount;
-    }
+  mounted () {
+   this.initGoods(this.$route.query.id);
   },
   methods: {
+    initGoods(id) {
+      this.$http.get(`http://localhost:8360/iapp/goods/detail/${id}`).then(response => {
+        const data = response.data.result
+        this.goods = data
+        console.log(this.goods)
+        //    this.listLoading = false
+      })
+    },
     // 获取商品详情
     async getGoodsInfo () {
       const res = await api.getGoodsDetail({ id: this.id });

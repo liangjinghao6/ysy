@@ -13,38 +13,45 @@
               style="width: 100%;height:100%" :default-sort="{prop: 'updTimestamp',order: 'descending'}"
               @sort-change="queryInfo.doSort" sortable="custom">
 
-        	<el-col :span="12">
-        </el-col>
-	<el-col :span="12">
-          <el-table-column width="150px" align="center" label="品牌名称" prop="brandName" >
-		<template slot-scope="scope">
-		  <span>{{scope.row.brandName}}</span>
-		</template>
-	      </el-table-column>
-        </el-col>
-	<el-col :span="12">
-          <el-table-column width="150px" align="center" label="品牌描述" prop="description" >
-		<template slot-scope="scope">
-		  <span>{{scope.row.description}}</span>
-		</template>
-	      </el-table-column>
-        </el-col>
-	<el-col :span="12">
-            <el-table-column width="250px" align="center" label="创建时间" prop="createTime" >
-		<template slot-scope="scope">
-		  <span>{{scope.row.createTime}}</span>
-		</template>
-	      </el-table-column>
-        </el-col>
-	<el-col :span="12">
-            <el-table-column width="250px" align="center" label="修改时间" prop="updateTime" >
-		<template slot-scope="scope">
-		  <span>{{scope.row.updateTime}}</span>
-		</template>
-	      </el-table-column>
-        </el-col>
-	<el-col :span="12">
-        </el-col>
+      <el-col :span="12">
+      </el-col>
+      <el-col :span="12">
+        <el-table-column width="150px" align="center" label="品牌名称" prop="brandName">
+          <template slot-scope="scope">
+            <span>{{scope.row.brandName}}</span>
+          </template>
+        </el-table-column>
+      </el-col>
+      <el-col :span="12">
+        <el-table-column width="150px" align="center" label="品牌描述" prop="description">
+          <template slot-scope="scope">
+            <span>{{scope.row.description}}</span>
+          </template>
+        </el-table-column>
+      </el-col>
+      <el-col :span="12">
+        <el-table-column width="150px" align="center" label="品牌链接" prop="description">
+          <template slot-scope="scope">
+            <span>{{scope.row.description}}</span>
+          </template>
+        </el-table-column>
+      </el-col>
+      <el-col :span="12">
+        <el-table-column width="250px" align="center" label="创建时间" prop="createTime">
+          <template slot-scope="scope">
+            <span>{{scope.row.createTime}}</span>
+          </template>
+        </el-table-column>
+      </el-col>
+      <el-col :span="12">
+        <el-table-column width="250px" align="center" label="修改时间" prop="updateTime">
+          <template slot-scope="scope">
+            <span>{{scope.row.updateTime}}</span>
+          </template>
+        </el-table-column>
+      </el-col>
+      <el-col :span="12">
+      </el-col>
 
       <el-table-column width="150px" align="center" label="操作">
         <template slot-scope="scope">
@@ -54,7 +61,7 @@
           </el-button>
         </template>
       </el-table-column>
-        
+
 
     </el-table>
     <div class="pagination-container">
@@ -119,7 +126,6 @@
           this.listLoading = false
         })
       },
-
     }
   }
 </script>

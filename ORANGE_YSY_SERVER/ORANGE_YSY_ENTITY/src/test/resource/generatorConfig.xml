@@ -61,6 +61,7 @@
 		<table tableName="ysy_lnk_goods_class"></table>
 		<table tableName="ysy_lnk_goods_image"></table>
 		<table tableName="ysy_lnk_order_goods"></table>
+		<table tableName="ysy_lnk_user_goods"></table>
 		<table tableName="ysy_op_operator"></table>
 		<table tableName="ysy_order"></table>
 		<table tableName="ysy_order_back"></table>

@@ -26,7 +26,7 @@ public class YsyGoodsCategoryExample {
 
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     public YsyGoodsCategoryExample() {
         oredCriteria = new ArrayList<Criteria>();
@@ -34,7 +34,7 @@ public class YsyGoodsCategoryExample {
 
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     public void setOrderByClause(String orderByClause) {
         this.orderByClause = orderByClause;
@@ -42,7 +42,7 @@ public class YsyGoodsCategoryExample {
 
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     public String getOrderByClause() {
         return orderByClause;
@@ -50,7 +50,7 @@ public class YsyGoodsCategoryExample {
 
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     public void setDistinct(boolean distinct) {
         this.distinct = distinct;
@@ -58,7 +58,7 @@ public class YsyGoodsCategoryExample {
 
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     public boolean isDistinct() {
         return distinct;
@@ -66,7 +66,7 @@ public class YsyGoodsCategoryExample {
 
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     public List<Criteria> getOredCriteria() {
         return oredCriteria;
@@ -74,7 +74,7 @@ public class YsyGoodsCategoryExample {
 
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     public void or(Criteria criteria) {
         oredCriteria.add(criteria);
@@ -82,7 +82,7 @@ public class YsyGoodsCategoryExample {
 
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     public Criteria or() {
         Criteria criteria = createCriteriaInternal();
@@ -92,7 +92,7 @@ public class YsyGoodsCategoryExample {
 
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     public Criteria createCriteria() {
         Criteria criteria = createCriteriaInternal();
@@ -104,7 +104,7 @@ public class YsyGoodsCategoryExample {
 
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     protected Criteria createCriteriaInternal() {
         Criteria criteria = new Criteria();
@@ -113,7 +113,7 @@ public class YsyGoodsCategoryExample {
 
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     public void clear() {
         oredCriteria.clear();
@@ -138,7 +138,7 @@ public class YsyGoodsCategoryExample {
     }
 
     /**
-     * ysy_goods_category 2018-12-24
+     * ysy_goods_category 2019-01-09
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -630,6 +630,216 @@ public class YsyGoodsCategoryExample {
             addCriterion("record_status not between", value1, value2, "recordStatus");
             return (Criteria) this;
         }
+
+        public Criteria andCategoryIconIsNull() {
+            addCriterion("category_icon is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryIconIsNotNull() {
+            addCriterion("category_icon is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryIconEqualTo(String value) {
+            addCriterion("category_icon =", value, "categoryIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryIconNotEqualTo(String value) {
+            addCriterion("category_icon <>", value, "categoryIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryIconGreaterThan(String value) {
+            addCriterion("category_icon >", value, "categoryIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryIconGreaterThanOrEqualTo(String value) {
+            addCriterion("category_icon >=", value, "categoryIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryIconLessThan(String value) {
+            addCriterion("category_icon <", value, "categoryIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryIconLessThanOrEqualTo(String value) {
+            addCriterion("category_icon <=", value, "categoryIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryIconLike(String value) {
+            addCriterion("category_icon like", value, "categoryIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryIconNotLike(String value) {
+            addCriterion("category_icon not like", value, "categoryIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryIconIn(List<String> values) {
+            addCriterion("category_icon in", values, "categoryIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryIconNotIn(List<String> values) {
+            addCriterion("category_icon not in", values, "categoryIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryIconBetween(String value1, String value2) {
+            addCriterion("category_icon between", value1, value2, "categoryIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryIconNotBetween(String value1, String value2) {
+            addCriterion("category_icon not between", value1, value2, "categoryIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryUrlIsNull() {
+            addCriterion("category_url is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryUrlIsNotNull() {
+            addCriterion("category_url is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryUrlEqualTo(String value) {
+            addCriterion("category_url =", value, "categoryUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryUrlNotEqualTo(String value) {
+            addCriterion("category_url <>", value, "categoryUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryUrlGreaterThan(String value) {
+            addCriterion("category_url >", value, "categoryUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("category_url >=", value, "categoryUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryUrlLessThan(String value) {
+            addCriterion("category_url <", value, "categoryUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryUrlLessThanOrEqualTo(String value) {
+            addCriterion("category_url <=", value, "categoryUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryUrlLike(String value) {
+            addCriterion("category_url like", value, "categoryUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryUrlNotLike(String value) {
+            addCriterion("category_url not like", value, "categoryUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryUrlIn(List<String> values) {
+            addCriterion("category_url in", values, "categoryUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryUrlNotIn(List<String> values) {
+            addCriterion("category_url not in", values, "categoryUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryUrlBetween(String value1, String value2) {
+            addCriterion("category_url between", value1, value2, "categoryUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryUrlNotBetween(String value1, String value2) {
+            addCriterion("category_url not between", value1, value2, "categoryUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryImgIsNull() {
+            addCriterion("category_img is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryImgIsNotNull() {
+            addCriterion("category_img is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryImgEqualTo(String value) {
+            addCriterion("category_img =", value, "categoryImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryImgNotEqualTo(String value) {
+            addCriterion("category_img <>", value, "categoryImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryImgGreaterThan(String value) {
+            addCriterion("category_img >", value, "categoryImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryImgGreaterThanOrEqualTo(String value) {
+            addCriterion("category_img >=", value, "categoryImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryImgLessThan(String value) {
+            addCriterion("category_img <", value, "categoryImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryImgLessThanOrEqualTo(String value) {
+            addCriterion("category_img <=", value, "categoryImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryImgLike(String value) {
+            addCriterion("category_img like", value, "categoryImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryImgNotLike(String value) {
+            addCriterion("category_img not like", value, "categoryImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryImgIn(List<String> values) {
+            addCriterion("category_img in", values, "categoryImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryImgNotIn(List<String> values) {
+            addCriterion("category_img not in", values, "categoryImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryImgBetween(String value1, String value2) {
+            addCriterion("category_img between", value1, value2, "categoryImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryImgNotBetween(String value1, String value2) {
+            addCriterion("category_img not between", value1, value2, "categoryImg");
+            return (Criteria) this;
+        }
     }
 
     /**
@@ -643,7 +853,7 @@ public class YsyGoodsCategoryExample {
     }
 
     /**
-     * ysy_goods_category 2018-12-24
+     * ysy_goods_category 2019-01-09
      */
     public static class Criterion {
         private String condition;

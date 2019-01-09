@@ -14,6 +14,7 @@ import com.orange.ysy.entity.YsyLnkGoodsClass;
 import com.orange.ysy.entity.YsyLnkGoodsClassExample;
 import com.orange.ysy.entity.YsyLnkGoodsImage;
 import com.orange.ysy.entity.YsyLnkGoodsImageExample;
+import com.orange.ysy.entity.YsySysFile;
 import com.orange.ysy.entity.mvo.YsyGoodsMvo;
 import com.orange.ysy.enumerate.GoodsImageType;
 import com.orange.ysy.enumerate.RecordStatus;
@@ -69,7 +70,7 @@ public class GoodsService implements IGoodsService{
 		YsyGoods goods =  goodsMapper.selectByPrimaryKey(id);
 		YsyGoodsMvo goodsMvo = new YsyGoodsMvo();
 		ClassUtil.fatherToChild(goods, goodsMvo);
-		goodsMvo.setClasses(getClassIdByGoodsId(goodsMvo.getGoodsId()));
+		goodsMvo.setClasses(getClassByGoodsId(goodsMvo.getGoodsId()));
 		goodsMvo.setSimpleImage(getImagesByGoodsId(goodsMvo.getGoodsId(), GoodsImageType.SIMPLE.getValue()));
 		goodsMvo.setDetailsImage(getImagesByGoodsId(goodsMvo.getGoodsId(), GoodsImageType.DETAILS.getValue()));
 		goodsMvo.setWheelImage(getImagesByGoodsId(goodsMvo.getGoodsId(), GoodsImageType.WHEEL.getValue()));
@@ -78,30 +79,17 @@ public class GoodsService implements IGoodsService{
 	}
 
 
-	private List<String> getImagesByGoodsId(String goodsId, Short type) {
-		YsyLnkGoodsImageExample example1 = new YsyLnkGoodsImageExample();
-		example1.createCriteria().andGoodsIdEqualTo(goodsId).andImageTypeEqualTo(type);
-		List<YsyLnkGoodsImage> images = goodsImageMapper.selectByExample(example1);
-		List<String> imageId = new ArrayList<String>();
-		for(YsyLnkGoodsImage img : images) {
-			imageId.add(img.getImageId());
-		}
-		images.clear();
-		return imageId;
+	private List<YsySysFile> getImagesByGoodsId(String goodsId, Short type) {
+		return goodsMapper.getImagesByGoodsId(goodsId, type);
 	}
 
 
-	private List<String> getClassIdByGoodsId(String goodsId) {
+	private List<YsyLnkGoodsClass> getClassByGoodsId(String goodsId) {
 		YsyLnkGoodsClassExample example1 = new YsyLnkGoodsClassExample();
 		example1.createCriteria().andGoodsIdEqualTo(goodsId);
-		List<YsyLnkGoodsClass> classes = goodsClassMapper.selectByExample(example1);
-		List<String> classId = new ArrayList<String>();
-		for(YsyLnkGoodsClass cls : classes) {
-			classId.add(cls.getClassId());
-		}
-		classes.clear();
-		return classId;
+		return goodsClassMapper.selectByExample(example1);
 	}
+
 
 
 	@Override
@@ -119,13 +107,13 @@ public class GoodsService implements IGoodsService{
 	}
 
 
-	private void updateGoodsClasses(List<String> classes, String goodsId) {
+	private void updateGoodsClasses(List<YsyLnkGoodsClass> classes, String goodsId) {
 		YsyLnkGoodsClassExample example = new YsyLnkGoodsClassExample();
 		example.createCriteria().andGoodsIdEqualTo(goodsId);
 		goodsClassMapper.deleteByExample(example);
-		for(String cls : classes) {
+		for(YsyLnkGoodsClass cls : classes) {
 			YsyLnkGoodsClass goodsClass = new YsyLnkGoodsClass();
-			goodsClass.setClassId(cls);
+			goodsClass.setClassId(cls.getClassId());
 			goodsClass.setGcId(CreateId.Uuid());
 			goodsClass.setGoodsId(goodsId);
 			goodsClassMapper.insert(goodsClass);
@@ -133,20 +121,19 @@ public class GoodsService implements IGoodsService{
 	}
 
 
-	private void updateGoodsImage(List<String> imageIds, Short type, String goodsId) {
+	private void updateGoodsImage(List<YsySysFile> files, Short type, String goodsId) {
 		YsyLnkGoodsImageExample example = new YsyLnkGoodsImageExample();
 		example.createCriteria().andGoodsIdEqualTo(goodsId).andImageTypeEqualTo(type);
 		goodsImageMapper.deleteByExample(example);
-		for(String imageId : imageIds) {
+		for(YsySysFile file : files) {
 			YsyLnkGoodsImage goodsImage = new YsyLnkGoodsImage();
 			goodsImage.setGiId(CreateId.Uuid());
-			goodsImage.setImageId(imageId);
+			goodsImage.setImageId(file.getFileId());
 			goodsImage.setImageType(type);
 			goodsImage.setGoodsId(goodsId);
 			goodsImageMapper.insert(goodsImage);
 		}
 	}
-
 
 	@Override
 	public Integer updateGoods(YsyGoodsMvo goods) {
@@ -161,5 +148,4 @@ public class GoodsService implements IGoodsService{
 		this.updateGoodsClasses(goods.getClasses(), goods.getGoodsId());
 		return count;
 	}
-
 }

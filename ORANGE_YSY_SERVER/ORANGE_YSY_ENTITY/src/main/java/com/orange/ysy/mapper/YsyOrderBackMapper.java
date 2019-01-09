@@ -8,67 +8,67 @@ import org.apache.ibatis.annotations.Param;
 public interface YsyOrderBackMapper {
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     long countByExample(YsyOrderBackExample example);
 
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     int deleteByExample(YsyOrderBackExample example);
 
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     int deleteByPrimaryKey(String backId);
 
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     int insert(YsyOrderBack record);
 
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     int insertSelective(YsyOrderBack record);
 
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     List<YsyOrderBack> selectByExample(YsyOrderBackExample example);
 
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     YsyOrderBack selectByPrimaryKey(String backId);
 
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     int updateByExampleSelective(@Param("record") YsyOrderBack record, @Param("example") YsyOrderBackExample example);
 
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     int updateByExample(@Param("record") YsyOrderBack record, @Param("example") YsyOrderBackExample example);
 
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     int updateByPrimaryKeySelective(YsyOrderBack record);
 
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     int updateByPrimaryKey(YsyOrderBack record);
 }

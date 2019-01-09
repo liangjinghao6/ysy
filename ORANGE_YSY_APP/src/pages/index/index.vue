@@ -1,16 +1,17 @@
 <template>
   <view class="container">
     <swiper class="banner" indicator-dots="true" autoplay="true" interval="3000" duration="1000">
-      <swiper-item v-for="item of banner" :key="item.id">
-        <navigator :url="item.link">
-          <img :src="item.image_url" background-size="cover"/>
+      <swiper-item v-for="item of brand" :key="item.brandId">
+        <navigator :url="brand.brandUrl">
+          <text>{{item.brandName}}</text>
+          <img :src="'http://localhost:8360/iapp/file/print/' + item.brandImg" background-size="cover"/>
         </navigator>
       </swiper-item>
     </swiper>
     <view class="m-menu">
-      <navigator class="item" :url="item.url" v-for="item of channel" :key="item.id">
-        <img :src="item.icon_url" background-size="cover"/>
-        <text>{{item.name}}</text>
+      <navigator class="item" :url="category.categoryUrl" v-for="item of category" :key="item.categoryId">
+        <img :src="'http://localhost:8360/iapp/file/print/' + item.categoryIcon" background-size="cover"/>
+        <text>{{item.categoryName}}</text>
       </navigator>
     </view>
     <view class="a-section a-brand">
@@ -20,13 +21,13 @@
         </navigator>
       </view>
       <view class="b">
-        <view class="item item-1" v-for="item of brands" :key="item.id">
-          <navigator :url="'/pages/brand/brandDetail?id='+item.id">
+        <view class="item item-1" v-for="item of brandsGoods" :key="item.goodsId">
+          <navigator :url="'/pages/brand/brandDetail?id='+item.goodsId">
             <view class="wrap">
-              <img class="img" :src="item.new_pic_url" mode="aspectFill"/>
+              <img class="img" :src="'http://localhost:8360/iapp/file/print/' + item.goodsImg" mode="aspectFill" background-size="cover"/>
               <view class="mt">
-                <text class="brand">{{item.name}}</text>
-                <text class="price">{{item.floor_price}}</text>
+                <text class="brand">{{item.goodsName}}</text>
+                <text class="price">{{item.goodsPrice}}</text>
                 <text class="unit">元起</text>
               </view>
             </view>
@@ -43,11 +44,11 @@
         </view>
       </view>
       <view class="b">
-        <view class="item" v-for="item of newGoods" :key="item.id">
-          <navigator :url="'../goods/goods?id='+ item.id">
-            <img class="img" :src="item.list_pic_url" background-size="cover"/>
-            <text class="name">{{item.name}}</text>
-            <text class="price">￥{{item.retail_price}}</text>
+        <view class="item" v-for="item of newGoods" :key="item.goodsId">
+          <navigator :url="'../goods/goods?id='+ item.goodsId">
+            <img class="img" :src="'http://localhost:8360/iapp/file/print/' + item.goodsImg" background-size="cover"/>
+            <text class="name">{{item.goodsName}}</text>
+            <text class="price">￥{{item.goodsPrice}}</text>
           </navigator>
         </view>
       </view>
@@ -61,14 +62,14 @@
         </view>
       </view>
       <view class="b">
-        <view class="item" v-for="item of hotGoods" :key="item.id">
-          <navigator :url="'/pages/goods/goods?id=' + item.id">
-            <img class="img" :src="item.list_pic_url" background-size="cover"/>
+        <view class="item" v-for="item of hotGoods" :key="item.goodsId">
+          <navigator :url="'/pages/goods/goods?id=' + item.goodsId">
+            <img class="img" :src="'http://localhost:8360/iapp/file/print/' + item.goodsImg" background-size="cover"/>
             <view class="right">
               <view class="text">
-                <text class="name">{{item.name}}</text>
-                <text class="desc">{{item.goods_brief}}</text>
-                <text class="price">￥{{item.retail_price}}</text>
+                <text class="name">{{item.goodsName}}</text>
+                <text class="desc">{{item.description}}</text>
+                <text class="price">￥{{item.goodsPrice}}</text>
               </view>
             </view>
           </navigator>
@@ -85,14 +86,14 @@
       </view>
       <view class="b">
         <scroll-view scroll-x="true" class="list">
-          <view class="item" v-for="item of topics" :key="item.id">
-            <navigator :url="'../topic/topicDetail?id=' + item.id">
-              <img class="img" :src="item.scene_pic_url" background-size="cover"/>
+          <view class="item" v-for="item of topics" :key="item.goodsId">
+            <navigator :url="'../topic/topicDetail?id=' + item.goodsId">
+              <img class="img" :src="'http://localhost:8360/iapp/file/print/' + item.goodsImg" background-size="cover"/>
               <view class="np">
-                <text class="name">{{item.title}}</text>
-                <text class="price">￥{{item.price_info}}元起</text>
+                <text class="name">{{item.goodsName}}</text>
+                <text class="price">￥{{item.goodsPrice}}元起</text>
               </view>
-              <text class="desc">{{item.subtitle}}</text>
+              <text class="desc">{{item.description}}</text>
             </navigator>
           </view>
         </scroll-view>
@@ -105,9 +106,9 @@
         </view>
       </view>
       <view class="b">
-        <block v-for="(iitem,iindex) of item.goodsList" :key="iitem.id" :data-id="index">
+        <block v-for="(iitem,iindex) of item.goodsList" :key="iitem.goodsId" :data-id="index">
           <view :class="  iindex % 2 == 0 ? 'item' : 'item item-b'">
-            <navigator :url="'../goods/goods?id=' + iitem.id" class="a">
+            <navigator :url="'../goods/goods?id=' + iitem.goodsId" class="a">
               <img class="img" :src="iitem.list_pic_url" background-size="cover"/>
               <text class="name">{{iitem.name}}</text>
               <text class="price">￥{{iitem.retail_price}}</text>
@@ -135,25 +136,46 @@
         newGoods: {},
         hotGoods: {},
         topics: {},
-        brands: {},
+        brandsGoods: {},
         floorGoods: {},
-        banner: {},
-        channel: {}
+        brand: {},
+        category: {}
       }
     },
     mounted() {
-      console.log(1)
-      var Fly=require("flyio/dist/npm/wx")
-      var fly=new Fly
-      fly.get(`http://localhost:8360/iapp/goods/find?q=1&pageNum=1&pageSize=100`).then(response => {
-        console.log(response)
-        console.log(response.data.result)
-        const data = response.data.result
-        this.pageBean = data
-        this.listLoading = false
-      })
+      this.initCategory();
+      this.initBrand();
+      this.initGoods();
     },
-    methods: {}
+    methods: {
+      initBrand() {
+        this.$http.get(`http://localhost:8360/iapp/goodsbrand/find?q=1&pageNum=1&pageSize=100`).then(response => {
+          const data = response.data.result
+          this.brand = data.list
+          console.log(this.brand)
+      //    this.listLoading = false
+        })
+      },
+      initGoods() {
+        this.$http.get(`http://localhost:8360/iapp/goods/find?q=1&pageNum=1&pageSize=100`).then(response => {
+          const data = response.data.result
+        //  this.hotGoods = data.list
+          this.newGoods = data.list
+        //  this.brandsGoods = data.list
+         // this.floorGoods = data.list
+         // this.topics = data.list
+      //    this.listLoading = false
+        })
+      },
+      initCategory() {
+        this.$http.get(`http://localhost:8360/iapp/goodscategory/find?q=1&pageNum=1&pageSize=100`).then(response => {
+          const data = response.data.result
+          this.category = data.list
+          console.log(this.category)
+          //    this.listLoading = false
+        })
+      }
+    }
   }
 </script>
 
@@ -240,13 +262,13 @@
   }
 
   .a-brand .img {
-    position: absolute;
+    position: relative;
     left: 0;
     top: 0;
   }
 
   .a-brand .mt {
-    position: absolute;
+    position: relative;
     z-index: 2;
     padding: 27 rpx 31 rpx;
     left: 0;

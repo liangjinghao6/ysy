@@ -32,44 +32,6 @@ public class GoodsController {
 
 	@Resource
 	private IGoodsService goodsService;
-
-	@ResponseBody
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public ResultBean addGoods(@RequestBody YsyGoodsMvo goods) {
-		try {
-			goodsService.addGoods(goods);
-			return ResultUtil.returnResult(goods, "增加商品成功");
-		} catch (Exception e) {
-			log.error("增加商品失败", e);
-			return ResultUtil.returnResult(e);
-		}
-	}
-	
-	// db_paramer delete
-	@ResponseBody
-	@RequestMapping(value = "/delete", method = {RequestMethod.GET})
-	public ResultBean deleteById(String id) {
-		try {
-			int count = goodsService.deleteById(id);
-			return ResultUtil.returnResult(count, "删除商品成功");
-		} catch (Exception e) {
-			log.error("删除商品失败", e);
-			return ResultUtil.returnResult(e);
-		}
-	}
-	
-	
-	@ResponseBody
-	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public ResultBean updateGoods(@RequestBody YsyGoodsMvo goods) {
-		try {
-			int count = goodsService.updateGoods(goods);
-			return ResultUtil.returnResult(count, "更新商品成功");
-		} catch (Exception e) {
-			log.error("更新商品失败", e);
-			return ResultUtil.returnResult(e);
-		}
-	}
 	
 	@RequestMapping(value = "/find", method = RequestMethod.GET)
 	@ResponseBody

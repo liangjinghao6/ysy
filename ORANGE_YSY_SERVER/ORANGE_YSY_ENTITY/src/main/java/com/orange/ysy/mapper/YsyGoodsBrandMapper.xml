@@ -8,6 +8,9 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="record_status" jdbcType="SMALLINT" property="recordStatus" />
+    <result column="brand_icon" jdbcType="VARCHAR" property="brandIcon" />
+    <result column="brand_url" jdbcType="VARCHAR" property="brandUrl" />
+    <result column="brand_img" jdbcType="VARCHAR" property="brandImg" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +71,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    brand_id, brand_name, description, create_time, update_time, record_status
+    brand_id, brand_name, description, create_time, update_time, record_status, brand_icon, 
+    brand_url, brand_img
   </sql>
   <select id="selectByExample" parameterType="com.orange.ysy.entity.YsyGoodsBrandExample" resultMap="BaseResultMap">
     select
@@ -110,10 +114,12 @@
   </delete>
   <insert id="insert" parameterType="com.orange.ysy.entity.YsyGoodsBrand">
     insert into ysy_goods_brand (brand_id, brand_name, description, 
-      create_time, update_time, record_status
+      create_time, update_time, record_status, 
+      brand_icon, brand_url, brand_img
       )
     values (#{brandId,jdbcType=VARCHAR}, #{brandName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{recordStatus,jdbcType=SMALLINT}
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{recordStatus,jdbcType=SMALLINT}, 
+      #{brandIcon,jdbcType=VARCHAR}, #{brandUrl,jdbcType=VARCHAR}, #{brandImg,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.orange.ysy.entity.YsyGoodsBrand">
@@ -137,6 +143,15 @@
       <if test="recordStatus != null">
         record_status,
       </if>
+      <if test="brandIcon != null">
+        brand_icon,
+      </if>
+      <if test="brandUrl != null">
+        brand_url,
+      </if>
+      <if test="brandImg != null">
+        brand_img,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="brandId != null">
@@ -156,6 +171,15 @@
       </if>
       <if test="recordStatus != null">
         #{recordStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="brandIcon != null">
+        #{brandIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="brandUrl != null">
+        #{brandUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="brandImg != null">
+        #{brandImg,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -186,6 +210,15 @@
       <if test="record.recordStatus != null">
         record_status = #{record.recordStatus,jdbcType=SMALLINT},
       </if>
+      <if test="record.brandIcon != null">
+        brand_icon = #{record.brandIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brandUrl != null">
+        brand_url = #{record.brandUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brandImg != null">
+        brand_img = #{record.brandImg,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -198,7 +231,10 @@
       description = #{record.description,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
-      record_status = #{record.recordStatus,jdbcType=SMALLINT}
+      record_status = #{record.recordStatus,jdbcType=SMALLINT},
+      brand_icon = #{record.brandIcon,jdbcType=VARCHAR},
+      brand_url = #{record.brandUrl,jdbcType=VARCHAR},
+      brand_img = #{record.brandImg,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -221,6 +257,15 @@
       <if test="recordStatus != null">
         record_status = #{recordStatus,jdbcType=SMALLINT},
       </if>
+      <if test="brandIcon != null">
+        brand_icon = #{brandIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="brandUrl != null">
+        brand_url = #{brandUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="brandImg != null">
+        brand_img = #{brandImg,jdbcType=VARCHAR},
+      </if>
     </set>
     where brand_id = #{brandId,jdbcType=VARCHAR}
   </update>
@@ -230,7 +275,10 @@
       description = #{description,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
-      record_status = #{recordStatus,jdbcType=SMALLINT}
+      record_status = #{recordStatus,jdbcType=SMALLINT},
+      brand_icon = #{brandIcon,jdbcType=VARCHAR},
+      brand_url = #{brandUrl,jdbcType=VARCHAR},
+      brand_img = #{brandImg,jdbcType=VARCHAR}
     where brand_id = #{brandId,jdbcType=VARCHAR}
   </update>
 </mapper>

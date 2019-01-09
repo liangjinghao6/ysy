@@ -9,12 +9,6 @@ import com.orange.ysy.entity.mvo.YsyGoodsMvo;
 * @date 2018-12-24
 */
 public interface IGoodsService {
-	
-	Integer deleteById(String id);
-
-	Integer updateGoods(YsyGoodsMvo user);
-
-	Integer addGoods(YsyGoodsMvo user);
 
 	PageBean<YsyGoods> findGoods(String q, Integer page, Integer limit);
 

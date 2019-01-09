@@ -9,6 +9,9 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="record_status" jdbcType="SMALLINT" property="recordStatus" />
+    <result column="category_icon" jdbcType="VARCHAR" property="categoryIcon" />
+    <result column="category_url" jdbcType="VARCHAR" property="categoryUrl" />
+    <result column="category_img" jdbcType="VARCHAR" property="categoryImg" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -69,7 +72,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    category_id, category_no, category_name, description, create_time, update_time, record_status
+    category_id, category_no, category_name, description, create_time, update_time, record_status, 
+    category_icon, category_url, category_img
   </sql>
   <select id="selectByExample" parameterType="com.orange.ysy.entity.YsyGoodsCategoryExample" resultMap="BaseResultMap">
     select
@@ -112,10 +116,12 @@
   <insert id="insert" parameterType="com.orange.ysy.entity.YsyGoodsCategory">
     insert into ysy_goods_category (category_id, category_no, category_name, 
       description, create_time, update_time, 
-      record_status)
+      record_status, category_icon, category_url, 
+      category_img)
     values (#{categoryId,jdbcType=VARCHAR}, #{categoryNo,jdbcType=INTEGER}, #{categoryName,jdbcType=VARCHAR}, 
       #{description,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{recordStatus,jdbcType=SMALLINT})
+      #{recordStatus,jdbcType=SMALLINT}, #{categoryIcon,jdbcType=VARCHAR}, #{categoryUrl,jdbcType=VARCHAR}, 
+      #{categoryImg,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.orange.ysy.entity.YsyGoodsCategory">
     insert into ysy_goods_category
@@ -141,6 +147,15 @@
       <if test="recordStatus != null">
         record_status,
       </if>
+      <if test="categoryIcon != null">
+        category_icon,
+      </if>
+      <if test="categoryUrl != null">
+        category_url,
+      </if>
+      <if test="categoryImg != null">
+        category_img,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="categoryId != null">
@@ -163,6 +178,15 @@
       </if>
       <if test="recordStatus != null">
         #{recordStatus,jdbcType=SMALLINT},
+      </if>
+      <if test="categoryIcon != null">
+        #{categoryIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryUrl != null">
+        #{categoryUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryImg != null">
+        #{categoryImg,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -196,6 +220,15 @@
       <if test="record.recordStatus != null">
         record_status = #{record.recordStatus,jdbcType=SMALLINT},
       </if>
+      <if test="record.categoryIcon != null">
+        category_icon = #{record.categoryIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.categoryUrl != null">
+        category_url = #{record.categoryUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.categoryImg != null">
+        category_img = #{record.categoryImg,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -209,7 +242,10 @@
       description = #{record.description,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
-      record_status = #{record.recordStatus,jdbcType=SMALLINT}
+      record_status = #{record.recordStatus,jdbcType=SMALLINT},
+      category_icon = #{record.categoryIcon,jdbcType=VARCHAR},
+      category_url = #{record.categoryUrl,jdbcType=VARCHAR},
+      category_img = #{record.categoryImg,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -235,6 +271,15 @@
       <if test="recordStatus != null">
         record_status = #{recordStatus,jdbcType=SMALLINT},
       </if>
+      <if test="categoryIcon != null">
+        category_icon = #{categoryIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryUrl != null">
+        category_url = #{categoryUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryImg != null">
+        category_img = #{categoryImg,jdbcType=VARCHAR},
+      </if>
     </set>
     where category_id = #{categoryId,jdbcType=VARCHAR}
   </update>
@@ -245,7 +290,10 @@
       description = #{description,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
-      record_status = #{recordStatus,jdbcType=SMALLINT}
+      record_status = #{recordStatus,jdbcType=SMALLINT},
+      category_icon = #{categoryIcon,jdbcType=VARCHAR},
+      category_url = #{categoryUrl,jdbcType=VARCHAR},
+      category_img = #{categoryImg,jdbcType=VARCHAR}
     where category_id = #{categoryId,jdbcType=VARCHAR}
   </update>
 </mapper>

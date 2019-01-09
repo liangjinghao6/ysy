@@ -34,6 +34,21 @@ public class YsyGoodsBrand {
      */
     private Short recordStatus;
 
+    /**
+     * 品牌图标
+     */
+    private String brandIcon;
+
+    /**
+     * 品牌跳转url
+     */
+    private String brandUrl;
+
+    /**
+     * 品牌图片
+     */
+    private String brandImg;
+
     public String getBrandId() {
         return brandId;
     }
@@ -82,5 +97,29 @@ public class YsyGoodsBrand {
 
     public void setRecordStatus(Short recordStatus) {
         this.recordStatus = recordStatus;
+    }
+
+    public String getBrandIcon() {
+        return brandIcon;
+    }
+
+    public void setBrandIcon(String brandIcon) {
+        this.brandIcon = brandIcon == null ? null : brandIcon.trim();
+    }
+
+    public String getBrandUrl() {
+        return brandUrl;
+    }
+
+    public void setBrandUrl(String brandUrl) {
+        this.brandUrl = brandUrl == null ? null : brandUrl.trim();
+    }
+
+    public String getBrandImg() {
+        return brandImg;
+    }
+
+    public void setBrandImg(String brandImg) {
+        this.brandImg = brandImg == null ? null : brandImg.trim();
     }
 }

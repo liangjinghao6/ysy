@@ -8,67 +8,67 @@ import org.apache.ibatis.annotations.Param;
 public interface YsyLnkOrderGoodsMapper {
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     long countByExample(YsyLnkOrderGoodsExample example);
 
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     int deleteByExample(YsyLnkOrderGoodsExample example);
 
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     int deleteByPrimaryKey(String odId);
 
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     int insert(YsyLnkOrderGoods record);
 
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     int insertSelective(YsyLnkOrderGoods record);
 
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     List<YsyLnkOrderGoods> selectByExample(YsyLnkOrderGoodsExample example);
 
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     YsyLnkOrderGoods selectByPrimaryKey(String odId);
 
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     int updateByExampleSelective(@Param("record") YsyLnkOrderGoods record, @Param("example") YsyLnkOrderGoodsExample example);
 
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     int updateByExample(@Param("record") YsyLnkOrderGoods record, @Param("example") YsyLnkOrderGoodsExample example);
 
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     int updateByPrimaryKeySelective(YsyLnkOrderGoods record);
 
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     int updateByPrimaryKey(YsyLnkOrderGoods record);
 }

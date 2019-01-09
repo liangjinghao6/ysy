@@ -4,7 +4,7 @@
     <el-form class="small-space" label-width="120px" :model="formInfo" ref="formInfo" :inline="true">
       <el-row justify="space-around">
 
-        
+
         <el-col :span="12">
         </el-col>
 
@@ -21,15 +21,43 @@
             </el-input>
           </el-form-item>
         </el-col>
-
         <el-col :span="12">
+          <el-form-item label="品牌链接" prop="brandUrl" :rules="$r(0,0,50)">
+            <el-input type="text" v-model="formInfo.brandUrl" placeholder="请输入品牌链接">
+            </el-input>
+          </el-form-item>
         </el-col>
 
         <el-col :span="12">
+          <el-form-item label="品牌图标" prop="brandIcon">
+            <el-upload
+
+              action="/iweb/file/upload"
+              list-type="picture-card"
+              :on-remove="handleIconRemove"
+              :on-success="handleIconSuccess"
+              :file-list=" [{name: formInfo.brandIcon, url: '/iweb/file/print/' + formInfo.brandIcon}]"
+              :limit="1">
+              <i class="el-icon-plus"></i>
+            </el-upload>
+          </el-form-item>
         </el-col>
 
         <el-col :span="12">
+          <el-form-item label="品牌背景" prop="brandImg">
+            <el-upload
+
+              action="/iweb/file/upload"
+              list-type="picture-card"
+              :on-remove="handleImageRemove"
+              :on-success="handleImageSuccess"
+              :file-list=" [{name: formInfo.brandImg, url: '/iweb/file/print/' + formInfo.brandImg}]"
+              :limit="1">
+              <i class="el-icon-plus"></i>
+            </el-upload>
+          </el-form-item>
         </el-col>
+
 
       </el-row>
     </el-form>
@@ -123,6 +151,18 @@
             message: "操作失败",
           })
         })
+      },
+      handleImageRemove(file, fileList) {
+        this.formInfo.brandImg=null;
+      },
+      handleImageSuccess(respones,file,fileList){
+        this.formInfo.brandImg = file.response.result.fileName;
+      },
+      handleIconRemove(file, fileList) {
+        this.formInfo.brandIcon=null;
+      },
+      handleIconSuccess(respones,file,fileList){
+        this.formInfo.brandIcon = file.response.result.fileName;
       },
     }
   }

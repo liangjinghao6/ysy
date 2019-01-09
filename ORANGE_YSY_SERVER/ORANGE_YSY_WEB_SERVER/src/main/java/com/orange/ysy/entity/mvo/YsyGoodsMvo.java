@@ -3,41 +3,43 @@ package com.orange.ysy.entity.mvo;
 import java.util.List;
 
 import com.orange.ysy.entity.YsyGoods;
+import com.orange.ysy.entity.YsyLnkGoodsClass;
+import com.orange.ysy.entity.YsySysFile;
 
 public class YsyGoodsMvo extends YsyGoods{
-	private List<String> simpleImage;
-	private List<String> detailsImage;
-	private List<String> wheelImage;
-	private List<String> extensionImage;
-	private List<String> classes;
-	public List<String> getSimpleImage() {
+	private List<YsySysFile> simpleImage;
+	private List<YsySysFile> detailsImage;
+	private List<YsySysFile> wheelImage;
+	private List<YsySysFile> extensionImage;
+	private List<YsyLnkGoodsClass> classes;
+	public List<YsySysFile> getSimpleImage() {
 		return simpleImage;
 	}
-	public void setSimpleImage(List<String> simpleImage) {
+	public void setSimpleImage(List<YsySysFile> simpleImage) {
 		this.simpleImage = simpleImage;
 	}
-	public List<String> getDetailsImage() {
+	public List<YsySysFile> getDetailsImage() {
 		return detailsImage;
 	}
-	public void setDetailsImage(List<String> detailsImage) {
+	public void setDetailsImage(List<YsySysFile> detailsImage) {
 		this.detailsImage = detailsImage;
 	}
-	public List<String> getWheelImage() {
+	public List<YsySysFile> getWheelImage() {
 		return wheelImage;
 	}
-	public void setWheelImage(List<String> wheelImage) {
+	public void setWheelImage(List<YsySysFile> wheelImage) {
 		this.wheelImage = wheelImage;
 	}
-	public List<String> getExtensionImage() {
+	public List<YsySysFile> getExtensionImage() {
 		return extensionImage;
 	}
-	public void setExtensionImage(List<String> extensionImage) {
+	public void setExtensionImage(List<YsySysFile> extensionImage) {
 		this.extensionImage = extensionImage;
 	}
-	public List<String> getClasses() {
+	public List<YsyLnkGoodsClass> getClasses() {
 		return classes;
 	}
-	public void setClasses(List<String> classes) {
+	public void setClasses(List<YsyLnkGoodsClass> classes) {
 		this.classes = classes;
 	}
 	

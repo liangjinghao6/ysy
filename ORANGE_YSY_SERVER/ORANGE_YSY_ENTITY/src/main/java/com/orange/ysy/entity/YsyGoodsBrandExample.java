@@ -26,7 +26,7 @@ public class YsyGoodsBrandExample {
 
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     public YsyGoodsBrandExample() {
         oredCriteria = new ArrayList<Criteria>();
@@ -34,7 +34,7 @@ public class YsyGoodsBrandExample {
 
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     public void setOrderByClause(String orderByClause) {
         this.orderByClause = orderByClause;
@@ -42,7 +42,7 @@ public class YsyGoodsBrandExample {
 
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     public String getOrderByClause() {
         return orderByClause;
@@ -50,7 +50,7 @@ public class YsyGoodsBrandExample {
 
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     public void setDistinct(boolean distinct) {
         this.distinct = distinct;
@@ -58,7 +58,7 @@ public class YsyGoodsBrandExample {
 
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     public boolean isDistinct() {
         return distinct;
@@ -66,7 +66,7 @@ public class YsyGoodsBrandExample {
 
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     public List<Criteria> getOredCriteria() {
         return oredCriteria;
@@ -74,7 +74,7 @@ public class YsyGoodsBrandExample {
 
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     public void or(Criteria criteria) {
         oredCriteria.add(criteria);
@@ -82,7 +82,7 @@ public class YsyGoodsBrandExample {
 
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     public Criteria or() {
         Criteria criteria = createCriteriaInternal();
@@ -92,7 +92,7 @@ public class YsyGoodsBrandExample {
 
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     public Criteria createCriteria() {
         Criteria criteria = createCriteriaInternal();
@@ -104,7 +104,7 @@ public class YsyGoodsBrandExample {
 
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     protected Criteria createCriteriaInternal() {
         Criteria criteria = new Criteria();
@@ -113,7 +113,7 @@ public class YsyGoodsBrandExample {
 
     /**
      *
-     * @mbg.generated 2018-12-24
+     * @mbg.generated 2019-01-09
      */
     public void clear() {
         oredCriteria.clear();
@@ -138,7 +138,7 @@ public class YsyGoodsBrandExample {
     }
 
     /**
-     * ysy_goods_brand 2018-12-24
+     * ysy_goods_brand 2019-01-09
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -570,6 +570,216 @@ public class YsyGoodsBrandExample {
             addCriterion("record_status not between", value1, value2, "recordStatus");
             return (Criteria) this;
         }
+
+        public Criteria andBrandIconIsNull() {
+            addCriterion("brand_icon is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandIconIsNotNull() {
+            addCriterion("brand_icon is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandIconEqualTo(String value) {
+            addCriterion("brand_icon =", value, "brandIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandIconNotEqualTo(String value) {
+            addCriterion("brand_icon <>", value, "brandIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandIconGreaterThan(String value) {
+            addCriterion("brand_icon >", value, "brandIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandIconGreaterThanOrEqualTo(String value) {
+            addCriterion("brand_icon >=", value, "brandIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandIconLessThan(String value) {
+            addCriterion("brand_icon <", value, "brandIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandIconLessThanOrEqualTo(String value) {
+            addCriterion("brand_icon <=", value, "brandIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandIconLike(String value) {
+            addCriterion("brand_icon like", value, "brandIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandIconNotLike(String value) {
+            addCriterion("brand_icon not like", value, "brandIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandIconIn(List<String> values) {
+            addCriterion("brand_icon in", values, "brandIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandIconNotIn(List<String> values) {
+            addCriterion("brand_icon not in", values, "brandIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandIconBetween(String value1, String value2) {
+            addCriterion("brand_icon between", value1, value2, "brandIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandIconNotBetween(String value1, String value2) {
+            addCriterion("brand_icon not between", value1, value2, "brandIcon");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandUrlIsNull() {
+            addCriterion("brand_url is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandUrlIsNotNull() {
+            addCriterion("brand_url is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandUrlEqualTo(String value) {
+            addCriterion("brand_url =", value, "brandUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandUrlNotEqualTo(String value) {
+            addCriterion("brand_url <>", value, "brandUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandUrlGreaterThan(String value) {
+            addCriterion("brand_url >", value, "brandUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("brand_url >=", value, "brandUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandUrlLessThan(String value) {
+            addCriterion("brand_url <", value, "brandUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandUrlLessThanOrEqualTo(String value) {
+            addCriterion("brand_url <=", value, "brandUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandUrlLike(String value) {
+            addCriterion("brand_url like", value, "brandUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandUrlNotLike(String value) {
+            addCriterion("brand_url not like", value, "brandUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandUrlIn(List<String> values) {
+            addCriterion("brand_url in", values, "brandUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandUrlNotIn(List<String> values) {
+            addCriterion("brand_url not in", values, "brandUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandUrlBetween(String value1, String value2) {
+            addCriterion("brand_url between", value1, value2, "brandUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandUrlNotBetween(String value1, String value2) {
+            addCriterion("brand_url not between", value1, value2, "brandUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandImgIsNull() {
+            addCriterion("brand_img is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandImgIsNotNull() {
+            addCriterion("brand_img is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandImgEqualTo(String value) {
+            addCriterion("brand_img =", value, "brandImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandImgNotEqualTo(String value) {
+            addCriterion("brand_img <>", value, "brandImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandImgGreaterThan(String value) {
+            addCriterion("brand_img >", value, "brandImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandImgGreaterThanOrEqualTo(String value) {
+            addCriterion("brand_img >=", value, "brandImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandImgLessThan(String value) {
+            addCriterion("brand_img <", value, "brandImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandImgLessThanOrEqualTo(String value) {
+            addCriterion("brand_img <=", value, "brandImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandImgLike(String value) {
+            addCriterion("brand_img like", value, "brandImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandImgNotLike(String value) {
+            addCriterion("brand_img not like", value, "brandImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandImgIn(List<String> values) {
+            addCriterion("brand_img in", values, "brandImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandImgNotIn(List<String> values) {
+            addCriterion("brand_img not in", values, "brandImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandImgBetween(String value1, String value2) {
+            addCriterion("brand_img between", value1, value2, "brandImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andBrandImgNotBetween(String value1, String value2) {
+            addCriterion("brand_img not between", value1, value2, "brandImg");
+            return (Criteria) this;
+        }
     }
 
     /**
@@ -583,7 +793,7 @@ public class YsyGoodsBrandExample {
     }
 
     /**
-     * ysy_goods_brand 2018-12-24
+     * ysy_goods_brand 2019-01-09
      */
     public static class Criterion {
         private String condition;
