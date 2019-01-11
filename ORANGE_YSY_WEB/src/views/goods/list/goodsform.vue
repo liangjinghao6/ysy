@@ -25,8 +25,8 @@
         </el-col>
 
         <el-col :span="12">
-          <el-form-item label="商品特征" prop="classes" >
-            <mgoodsclasssel v-model="formInfo.classes" :impValue="formInfo.classes" placeholder="请输入商品特征"></mgoodsclasssel>
+          <el-form-item label="商品特征" prop="classIds" >
+            <mgoodsclasssel v-model="formInfo.classIds" :impValue="formInfo.classIds" placeholder="请输入商品特征"></mgoodsclasssel>
           </el-form-item>
         </el-col>
 
@@ -154,7 +154,7 @@
           wheelImage: [],
           detailsImage: [],
           extensionImage: [],
-          classes: [],
+          classIds: [],
         },
         simpleImageList: [],
         wheelImageList: [],
@@ -166,6 +166,20 @@
         //dialogImageUrl: '',
         //dialogVisible: false
       }
+    },
+    mounted() {
+      Array.prototype.indexOf = function(val) {
+        for (var i = 0; i < this.length; i++) {
+          if (this[i] == val) return i;
+        }
+        return -1;
+      };
+      Array.prototype.remove = function(val) {
+        var index = this.indexOf(val);
+        if (index > -1) {
+          this.splice(index, 1);
+        }
+      };
     },
     methods: {
       show(id, method) {
@@ -266,31 +280,31 @@
       //   this.dialogVisible = true;
       // },
       handleImageSuccess(respones,file,fileList){
-        this.formInfo.goodsImage = file.response.result.fileId;
+        this.formInfo.goodsImage = file.response.result;
       },
       handleSimpleImageRemove(file, fileList) {
-        this.formInfo.simpleImage.unshift(file.response.result.fileId);
+        this.formInfo.simpleImage.removeObject(file.response.result);
       },
       handleSimpleImageSuccess(respones,file,fileList){
-        this.formInfo.simpleImage.push(file.response.result.fileId);
+        this.formInfo.simpleImage.push(file.response.result);
       },
       handleDetailsImageRemove(file, fileList) {
-        this.formInfo.detailsImage.unshift(file.response.result.fileId);
+        this.formInfo.detailsImage.removeObject(file.response.result);
       },
       handleDetailsImageSuccess(respones,file,fileList){
-        this.formInfo.detailsImage.push(file.response.result.fileId);
+        this.formInfo.detailsImage.push(file.response.result);
       },
       handleWheelImageRemove(file, fileList) {
-        this.formInfo.wheelImage.unshift(file.response.result.fileId);
+        this.formInfo.wheelImage.removeObject(file.response.result);
       },
       handleWheelImageSuccess(respones,file,fileList){
-        this.formInfo.wheelImage.push(file.response.result.fileId);
+        this.formInfo.wheelImage.push(file.response.result);
       },
       handleExtensionImageRemove(file, fileList) {
-        this.formInfo.extensionImage.unshift(file.response.result.fileId);
+        this.formInfo.extensionImage.removeObject(file.response.result);
       },
       handleExtensionImageSuccess(respones,file,fileList){
-        this.formInfo.extensionImage.push(file.response.result.fileId);
+        this.formInfo.extensionImage.push(file.response.result);
       },
     }
   }

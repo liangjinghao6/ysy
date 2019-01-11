@@ -3,12 +3,9 @@ import store from '@/store'
 import App from '@/App'
 import MpvueRouterPatch from 'mpvue-router-patch'
 
-var Fly=require("flyio/dist/npm/wx")
-let fly=new Fly
-Vue.prototype.$http = fly
+Vue.prototype.$imgPrintUrl = 'http://39.96.38.93:8880/file/print/'
 Vue.config.productionTip = false
 Vue.use(MpvueRouterPatch)
-
 const app = new Vue({
   store,
   ...App

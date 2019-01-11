@@ -11,6 +11,11 @@ public class RandomUtil {
 
 	private static Random r = new Random();
 
+	/**
+	 * 生成一个 0-size大小的数字
+	 * @param size
+	 * @return
+	 */
 	public static int getRandomNum(int size) {
 
 		// TODO Auto-generated method stub

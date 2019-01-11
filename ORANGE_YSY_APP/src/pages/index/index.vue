@@ -4,13 +4,13 @@
       <swiper-item v-for="item of brand" :key="item.brandId">
         <navigator :url="brand.brandUrl">
           <text>{{item.brandName}}</text>
-          <img :src="'http://localhost:8360/iapp/file/print/' + item.brandImg" background-size="cover"/>
+          <img :src="$imgPrintUrl + item.brandImg" background-size="cover"/>
         </navigator>
       </swiper-item>
     </swiper>
     <view class="m-menu">
       <navigator class="item" :url="category.categoryUrl" v-for="item of category" :key="item.categoryId">
-        <img :src="'http://localhost:8360/iapp/file/print/' + item.categoryIcon" background-size="cover"/>
+        <img :src="$imgPrintUrl + item.categoryIcon" background-size="cover"/>
         <text>{{item.categoryName}}</text>
       </navigator>
     </view>
@@ -24,7 +24,7 @@
         <view class="item item-1" v-for="item of brandsGoods" :key="item.goodsId">
           <navigator :url="'/pages/brand/brandDetail?id='+item.goodsId">
             <view class="wrap">
-              <img class="img" :src="'http://localhost:8360/iapp/file/print/' + item.goodsImg" mode="aspectFill" background-size="cover"/>
+              <img class="img" :src="$imgPrintUrl + item.goodsImg" mode="aspectFill" background-size="cover"/>
               <view class="mt">
                 <text class="brand">{{item.goodsName}}</text>
                 <text class="price">{{item.goodsPrice}}</text>
@@ -46,7 +46,7 @@
       <view class="b">
         <view class="item" v-for="item of newGoods" :key="item.goodsId">
           <navigator :url="'../goods/goods?id='+ item.goodsId">
-            <img class="img" :src="'http://localhost:8360/iapp/file/print/' + item.goodsImg" background-size="cover"/>
+            <img class="img" :src="$imgPrintUrl + item.goodsImg" background-size="cover"/>
             <text class="name">{{item.goodsName}}</text>
             <text class="price">￥{{item.goodsPrice}}</text>
           </navigator>
@@ -64,7 +64,7 @@
       <view class="b">
         <view class="item" v-for="item of hotGoods" :key="item.goodsId">
           <navigator :url="'/pages/goods/goods?id=' + item.goodsId">
-            <img class="img" :src="'http://localhost:8360/iapp/file/print/' + item.goodsImg" background-size="cover"/>
+            <img class="img" :src="$imgPrintUrl + item.goodsImg" background-size="cover"/>
             <view class="right">
               <view class="text">
                 <text class="name">{{item.goodsName}}</text>
@@ -88,7 +88,7 @@
         <scroll-view scroll-x="true" class="list">
           <view class="item" v-for="item of topics" :key="item.goodsId">
             <navigator :url="'../topic/topicDetail?id=' + item.goodsId">
-              <img class="img" :src="'http://localhost:8360/iapp/file/print/' + item.goodsImg" background-size="cover"/>
+              <img class="img" :src="$imgPrintUrl + item.goodsImg" background-size="cover"/>
               <view class="np">
                 <text class="name">{{item.goodsName}}</text>
                 <text class="price">￥{{item.goodsPrice}}元起</text>
@@ -127,11 +127,10 @@
 </template>
 
 <script>
-  // import api from '@/utils/api'
-  //import axios from 'axios'
-  //import wx from 'flyio/dist/npm/wx'
+  import api from '@/utils/api'
+
   export default {
-    data () {
+    data() {
       return {
         newGoods: {},
         hotGoods: {},
@@ -149,27 +148,27 @@
     },
     methods: {
       initBrand() {
-        this.$http.get(`http://localhost:8360/iapp/goodsbrand/find?q=1&pageNum=1&pageSize=100`).then(response => {
-          const data = response.data.result
+        api.get(`goodsbrand/find?q=1&pageNum=1&pageSize=100`).then(response => {
+          const data = response.result
           this.brand = data.list
           console.log(this.brand)
-      //    this.listLoading = false
+          //    this.listLoading = false
         })
       },
       initGoods() {
-        this.$http.get(`http://localhost:8360/iapp/goods/find?q=1&pageNum=1&pageSize=100`).then(response => {
-          const data = response.data.result
-        //  this.hotGoods = data.list
+        api.get(`goods/find?q=1&pageNum=1&pageSize=100`).then(response => {
+          const data = response.result
+          //  this.hotGoods = data.list
           this.newGoods = data.list
-        //  this.brandsGoods = data.list
-         // this.floorGoods = data.list
-         // this.topics = data.list
-      //    this.listLoading = false
+          //  this.brandsGoods = data.list
+          // this.floorGoods = data.list
+          // this.topics = data.list
+          //    this.listLoading = false
         })
       },
       initCategory() {
-        this.$http.get(`http://localhost:8360/iapp/goodscategory/find?q=1&pageNum=1&pageSize=100`).then(response => {
-          const data = response.data.result
+        api.get(`goodscategory/find?q=1&pageNum=1&pageSize=100`).then(response => {
+          const data = response.result
           this.category = data.list
           console.log(this.category)
           //    this.listLoading = false

@@ -11,7 +11,7 @@ public class YsyGoodsMvo extends YsyGoods{
 	private List<YsySysFile> detailsImage;
 	private List<YsySysFile> wheelImage;
 	private List<YsySysFile> extensionImage;
-	private List<YsyLnkGoodsClass> classes;
+	private List<String> classIds;
 	public List<YsySysFile> getSimpleImage() {
 		return simpleImage;
 	}
@@ -36,11 +36,11 @@ public class YsyGoodsMvo extends YsyGoods{
 	public void setExtensionImage(List<YsySysFile> extensionImage) {
 		this.extensionImage = extensionImage;
 	}
-	public List<YsyLnkGoodsClass> getClasses() {
-		return classes;
+	public List<String> getClassIds() {
+		return classIds;
 	}
-	public void setClasses(List<YsyLnkGoodsClass> classes) {
-		this.classes = classes;
+	public void setClassIds(List<String> classIds) {
+		this.classIds = classIds;
 	}
 	
 }

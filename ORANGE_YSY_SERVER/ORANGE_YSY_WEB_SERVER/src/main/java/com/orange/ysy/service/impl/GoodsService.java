@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.orange.ysy.entity.PageBean;
 import com.orange.ysy.entity.YsyGoods;
+import com.orange.ysy.entity.YsyGoodsClass;
 import com.orange.ysy.entity.YsyGoodsExample;
 import com.orange.ysy.entity.YsyLnkGoodsClass;
 import com.orange.ysy.entity.YsyLnkGoodsClassExample;
@@ -70,7 +71,7 @@ public class GoodsService implements IGoodsService{
 		YsyGoods goods =  goodsMapper.selectByPrimaryKey(id);
 		YsyGoodsMvo goodsMvo = new YsyGoodsMvo();
 		ClassUtil.fatherToChild(goods, goodsMvo);
-		goodsMvo.setClasses(getClassByGoodsId(goodsMvo.getGoodsId()));
+		goodsMvo.setClassIds(getClassByGoodsId(goodsMvo.getGoodsId()));
 		goodsMvo.setSimpleImage(getImagesByGoodsId(goodsMvo.getGoodsId(), GoodsImageType.SIMPLE.getValue()));
 		goodsMvo.setDetailsImage(getImagesByGoodsId(goodsMvo.getGoodsId(), GoodsImageType.DETAILS.getValue()));
 		goodsMvo.setWheelImage(getImagesByGoodsId(goodsMvo.getGoodsId(), GoodsImageType.WHEEL.getValue()));
@@ -84,10 +85,15 @@ public class GoodsService implements IGoodsService{
 	}
 
 
-	private List<YsyLnkGoodsClass> getClassByGoodsId(String goodsId) {
+	private List<String> getClassByGoodsId(String goodsId) {
 		YsyLnkGoodsClassExample example1 = new YsyLnkGoodsClassExample();
 		example1.createCriteria().andGoodsIdEqualTo(goodsId);
-		return goodsClassMapper.selectByExample(example1);
+		List<YsyLnkGoodsClass> classes = goodsClassMapper.selectByExample(example1);
+		List<String> classIds = new ArrayList<String>();
+		for(YsyLnkGoodsClass cls : classes) {
+			classIds.add(cls.getClassId());
+		}
+		return classIds;
 	}
 
 
@@ -102,18 +108,18 @@ public class GoodsService implements IGoodsService{
 		this.updateGoodsImage(goods.getDetailsImage(), GoodsImageType.DETAILS.getValue(), goods.getGoodsId());
 		this.updateGoodsImage(goods.getWheelImage(), GoodsImageType.WHEEL.getValue(), goods.getGoodsId());
 		this.updateGoodsImage(goods.getExtensionImage(), GoodsImageType.EXTENSION.getValue(), goods.getGoodsId());
-		this.updateGoodsClasses(goods.getClasses(), goods.getGoodsId());
+		this.updateGoodsClasses(goods.getClassIds(), goods.getGoodsId());
 		return count;
 	}
 
 
-	private void updateGoodsClasses(List<YsyLnkGoodsClass> classes, String goodsId) {
+	private void updateGoodsClasses(List<String> classIds, String goodsId) {
 		YsyLnkGoodsClassExample example = new YsyLnkGoodsClassExample();
 		example.createCriteria().andGoodsIdEqualTo(goodsId);
 		goodsClassMapper.deleteByExample(example);
-		for(YsyLnkGoodsClass cls : classes) {
+		for(String classId : classIds) {
 			YsyLnkGoodsClass goodsClass = new YsyLnkGoodsClass();
-			goodsClass.setClassId(cls.getClassId());
+			goodsClass.setClassId(classId);
 			goodsClass.setGcId(CreateId.Uuid());
 			goodsClass.setGoodsId(goodsId);
 			goodsClassMapper.insert(goodsClass);
@@ -145,7 +151,7 @@ public class GoodsService implements IGoodsService{
 		this.updateGoodsImage(goods.getDetailsImage(), GoodsImageType.DETAILS.getValue(), goods.getGoodsId());
 		this.updateGoodsImage(goods.getWheelImage(), GoodsImageType.WHEEL.getValue(), goods.getGoodsId());
 		this.updateGoodsImage(goods.getExtensionImage(), GoodsImageType.EXTENSION.getValue(), goods.getGoodsId());
-		this.updateGoodsClasses(goods.getClasses(), goods.getGoodsId());
+		this.updateGoodsClasses(goods.getClassIds(), goods.getGoodsId());
 		return count;
 	}
 }

@@ -26,7 +26,7 @@ public class YsyOpOperatorExample {
 
     /**
      *
-     * @mbg.generated 2019-01-09
+     * @mbg.generated 2019-01-11
      */
     public YsyOpOperatorExample() {
         oredCriteria = new ArrayList<Criteria>();
@@ -34,7 +34,7 @@ public class YsyOpOperatorExample {
 
     /**
      *
-     * @mbg.generated 2019-01-09
+     * @mbg.generated 2019-01-11
      */
     public void setOrderByClause(String orderByClause) {
         this.orderByClause = orderByClause;
@@ -42,7 +42,7 @@ public class YsyOpOperatorExample {
 
     /**
      *
-     * @mbg.generated 2019-01-09
+     * @mbg.generated 2019-01-11
      */
     public String getOrderByClause() {
         return orderByClause;
@@ -50,7 +50,7 @@ public class YsyOpOperatorExample {
 
     /**
      *
-     * @mbg.generated 2019-01-09
+     * @mbg.generated 2019-01-11
      */
     public void setDistinct(boolean distinct) {
         this.distinct = distinct;
@@ -58,7 +58,7 @@ public class YsyOpOperatorExample {
 
     /**
      *
-     * @mbg.generated 2019-01-09
+     * @mbg.generated 2019-01-11
      */
     public boolean isDistinct() {
         return distinct;
@@ -66,7 +66,7 @@ public class YsyOpOperatorExample {
 
     /**
      *
-     * @mbg.generated 2019-01-09
+     * @mbg.generated 2019-01-11
      */
     public List<Criteria> getOredCriteria() {
         return oredCriteria;
@@ -74,7 +74,7 @@ public class YsyOpOperatorExample {
 
     /**
      *
-     * @mbg.generated 2019-01-09
+     * @mbg.generated 2019-01-11
      */
     public void or(Criteria criteria) {
         oredCriteria.add(criteria);
@@ -82,7 +82,7 @@ public class YsyOpOperatorExample {
 
     /**
      *
-     * @mbg.generated 2019-01-09
+     * @mbg.generated 2019-01-11
      */
     public Criteria or() {
         Criteria criteria = createCriteriaInternal();
@@ -92,7 +92,7 @@ public class YsyOpOperatorExample {
 
     /**
      *
-     * @mbg.generated 2019-01-09
+     * @mbg.generated 2019-01-11
      */
     public Criteria createCriteria() {
         Criteria criteria = createCriteriaInternal();
@@ -104,7 +104,7 @@ public class YsyOpOperatorExample {
 
     /**
      *
-     * @mbg.generated 2019-01-09
+     * @mbg.generated 2019-01-11
      */
     protected Criteria createCriteriaInternal() {
         Criteria criteria = new Criteria();
@@ -113,7 +113,7 @@ public class YsyOpOperatorExample {
 
     /**
      *
-     * @mbg.generated 2019-01-09
+     * @mbg.generated 2019-01-11
      */
     public void clear() {
         oredCriteria.clear();
@@ -138,7 +138,7 @@ public class YsyOpOperatorExample {
     }
 
     /**
-     * ysy_op_operator 2019-01-09
+     * ysy_op_operator 2019-01-11
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -1393,7 +1393,7 @@ public class YsyOpOperatorExample {
     }
 
     /**
-     * ysy_op_operator 2019-01-09
+     * ysy_op_operator 2019-01-11
      */
     public static class Criterion {
         private String condition;

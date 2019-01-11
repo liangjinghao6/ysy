@@ -1,8 +1,34 @@
 import request from './request'
 
-const ApiRootUrl = 'http://127.0.0.1:8360/api/'
+const ApiRootUrl = 'http://127.0.0.1:8360/iapp/'
 
 const api = {
+  get: (url) => request.get(url, null, {
+    baseURL: ApiRootUrl
+  }),
+  post: (url, paramObj) => request.post(url, paramObj, {
+    baseURL: ApiRootUrl
+  }),
+  printImage: (img) => {
+    return ApiRootUrl + 'file/print/' + img;
+  },
+  findGoods: (paramObj) => request.get('file/print', paramObj, {
+    baseURL: ApiRootUrl
+  }),
+  findGoodsBrand: (paramObj) => request.get('file/print', paramObj, {
+    baseURL: ApiRootUrl
+  }),
+
+
+
+
+
+
+
+
+
+
+
   // 首页数据接口
   getIndexData: (r) => request.get('index/index', null, {
     baseURL: ApiRootUrl

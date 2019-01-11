@@ -3,9 +3,16 @@
 <mapper namespace="com.orange.ysy.mapper.YsyLnkOrderGoodsMapper">
   <resultMap id="BaseResultMap" type="com.orange.ysy.entity.YsyLnkOrderGoods">
     <id column="od_id" jdbcType="VARCHAR" property="odId" />
-    <result column="goods_id" jdbcType="VARCHAR" property="goodsId" />
-    <result column="goods_num" jdbcType="SMALLINT" property="goodsNum" />
     <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="goods_id" jdbcType="VARCHAR" property="goodsId" />
+    <result column="goods_no" jdbcType="INTEGER" property="goodsNo" />
+    <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
+    <result column="goods_num" jdbcType="SMALLINT" property="goodsNum" />
+    <result column="goods_image" jdbcType="VARCHAR" property="goodsImage" />
+    <result column="market_price" jdbcType="DOUBLE" property="marketPrice" />
+    <result column="real_price" jdbcType="DOUBLE" property="realPrice" />
+    <result column="class_names" jdbcType="VARCHAR" property="classNames" />
+    <result column="class_ids" jdbcType="VARCHAR" property="classIds" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -67,7 +74,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    od_id, goods_id, goods_num, order_id, create_time
+    od_id, order_id, goods_id, goods_no, goods_name, goods_num, goods_image, market_price, 
+    real_price, class_names, class_ids, create_time
   </sql>
   <select id="selectByExample" parameterType="com.orange.ysy.entity.YsyLnkOrderGoodsExample" resultMap="BaseResultMap">
     select
@@ -108,10 +116,16 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.orange.ysy.entity.YsyLnkOrderGoods">
-    insert into ysy_lnk_order_goods (od_id, goods_id, goods_num, 
-      order_id, create_time)
-    values (#{odId,jdbcType=VARCHAR}, #{goodsId,jdbcType=VARCHAR}, #{goodsNum,jdbcType=SMALLINT}, 
-      #{orderId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+    insert into ysy_lnk_order_goods (od_id, order_id, goods_id, 
+      goods_no, goods_name, goods_num, 
+      goods_image, market_price, real_price, 
+      class_names, class_ids, create_time
+      )
+    values (#{odId,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, #{goodsId,jdbcType=VARCHAR}, 
+      #{goodsNo,jdbcType=INTEGER}, #{goodsName,jdbcType=VARCHAR}, #{goodsNum,jdbcType=SMALLINT}, 
+      #{goodsImage,jdbcType=VARCHAR}, #{marketPrice,jdbcType=DOUBLE}, #{realPrice,jdbcType=DOUBLE}, 
+      #{classNames,jdbcType=VARCHAR}, #{classIds,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.orange.ysy.entity.YsyLnkOrderGoods">
     insert into ysy_lnk_order_goods
@@ -119,14 +133,35 @@
       <if test="odId != null">
         od_id,
       </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
       <if test="goodsId != null">
         goods_id,
+      </if>
+      <if test="goodsNo != null">
+        goods_no,
+      </if>
+      <if test="goodsName != null">
+        goods_name,
       </if>
       <if test="goodsNum != null">
         goods_num,
       </if>
-      <if test="orderId != null">
-        order_id,
+      <if test="goodsImage != null">
+        goods_image,
+      </if>
+      <if test="marketPrice != null">
+        market_price,
+      </if>
+      <if test="realPrice != null">
+        real_price,
+      </if>
+      <if test="classNames != null">
+        class_names,
+      </if>
+      <if test="classIds != null">
+        class_ids,
       </if>
       <if test="createTime != null">
         create_time,
@@ -136,14 +171,35 @@
       <if test="odId != null">
         #{odId,jdbcType=VARCHAR},
       </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
+      </if>
       <if test="goodsId != null">
         #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsNo != null">
+        #{goodsNo,jdbcType=INTEGER},
+      </if>
+      <if test="goodsName != null">
+        #{goodsName,jdbcType=VARCHAR},
       </if>
       <if test="goodsNum != null">
         #{goodsNum,jdbcType=SMALLINT},
       </if>
-      <if test="orderId != null">
-        #{orderId,jdbcType=VARCHAR},
+      <if test="goodsImage != null">
+        #{goodsImage,jdbcType=VARCHAR},
+      </if>
+      <if test="marketPrice != null">
+        #{marketPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="realPrice != null">
+        #{realPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="classNames != null">
+        #{classNames,jdbcType=VARCHAR},
+      </if>
+      <if test="classIds != null">
+        #{classIds,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -162,14 +218,35 @@
       <if test="record.odId != null">
         od_id = #{record.odId,jdbcType=VARCHAR},
       </if>
+      <if test="record.orderId != null">
+        order_id = #{record.orderId,jdbcType=VARCHAR},
+      </if>
       <if test="record.goodsId != null">
         goods_id = #{record.goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsNo != null">
+        goods_no = #{record.goodsNo,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsName != null">
+        goods_name = #{record.goodsName,jdbcType=VARCHAR},
       </if>
       <if test="record.goodsNum != null">
         goods_num = #{record.goodsNum,jdbcType=SMALLINT},
       </if>
-      <if test="record.orderId != null">
-        order_id = #{record.orderId,jdbcType=VARCHAR},
+      <if test="record.goodsImage != null">
+        goods_image = #{record.goodsImage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.marketPrice != null">
+        market_price = #{record.marketPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.realPrice != null">
+        real_price = #{record.realPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.classNames != null">
+        class_names = #{record.classNames,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classIds != null">
+        class_ids = #{record.classIds,jdbcType=VARCHAR},
       </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -182,9 +259,16 @@
   <update id="updateByExample" parameterType="map">
     update ysy_lnk_order_goods
     set od_id = #{record.odId,jdbcType=VARCHAR},
-      goods_id = #{record.goodsId,jdbcType=VARCHAR},
-      goods_num = #{record.goodsNum,jdbcType=SMALLINT},
       order_id = #{record.orderId,jdbcType=VARCHAR},
+      goods_id = #{record.goodsId,jdbcType=VARCHAR},
+      goods_no = #{record.goodsNo,jdbcType=INTEGER},
+      goods_name = #{record.goodsName,jdbcType=VARCHAR},
+      goods_num = #{record.goodsNum,jdbcType=SMALLINT},
+      goods_image = #{record.goodsImage,jdbcType=VARCHAR},
+      market_price = #{record.marketPrice,jdbcType=DOUBLE},
+      real_price = #{record.realPrice,jdbcType=DOUBLE},
+      class_names = #{record.classNames,jdbcType=VARCHAR},
+      class_ids = #{record.classIds,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -193,14 +277,35 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.orange.ysy.entity.YsyLnkOrderGoods">
     update ysy_lnk_order_goods
     <set>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
       <if test="goodsId != null">
         goods_id = #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsNo != null">
+        goods_no = #{goodsNo,jdbcType=INTEGER},
+      </if>
+      <if test="goodsName != null">
+        goods_name = #{goodsName,jdbcType=VARCHAR},
       </if>
       <if test="goodsNum != null">
         goods_num = #{goodsNum,jdbcType=SMALLINT},
       </if>
-      <if test="orderId != null">
-        order_id = #{orderId,jdbcType=VARCHAR},
+      <if test="goodsImage != null">
+        goods_image = #{goodsImage,jdbcType=VARCHAR},
+      </if>
+      <if test="marketPrice != null">
+        market_price = #{marketPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="realPrice != null">
+        real_price = #{realPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="classNames != null">
+        class_names = #{classNames,jdbcType=VARCHAR},
+      </if>
+      <if test="classIds != null">
+        class_ids = #{classIds,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -210,9 +315,16 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.orange.ysy.entity.YsyLnkOrderGoods">
     update ysy_lnk_order_goods
-    set goods_id = #{goodsId,jdbcType=VARCHAR},
+    set order_id = #{orderId,jdbcType=VARCHAR},
+      goods_id = #{goodsId,jdbcType=VARCHAR},
+      goods_no = #{goodsNo,jdbcType=INTEGER},
+      goods_name = #{goodsName,jdbcType=VARCHAR},
       goods_num = #{goodsNum,jdbcType=SMALLINT},
-      order_id = #{orderId,jdbcType=VARCHAR},
+      goods_image = #{goodsImage,jdbcType=VARCHAR},
+      market_price = #{marketPrice,jdbcType=DOUBLE},
+      real_price = #{realPrice,jdbcType=DOUBLE},
+      class_names = #{classNames,jdbcType=VARCHAR},
+      class_ids = #{classIds,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where od_id = #{odId,jdbcType=VARCHAR}
   </update>

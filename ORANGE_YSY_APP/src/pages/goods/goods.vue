@@ -193,6 +193,7 @@ export default {
   methods: {
     initGoods(id) {
       this.$http.get(`http://localhost:8360/iapp/goods/detail/${id}`).then(response => {
+        console.log(response)
         const data = response.data.result
         this.goods = data
         console.log(this.goods)
